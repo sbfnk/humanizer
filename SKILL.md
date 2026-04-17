@@ -1,13 +1,14 @@
 ---
 name: humanizer
-version: 2.5.1
+version: 2.5.1+sbfnk.1
 description: |
   Remove signs of AI-generated writing from text. Use when editing or reviewing
   text to make it sound more natural and human-written. Based on Wikipedia's
   comprehensive "Signs of AI writing" guide. Detects and fixes patterns including:
   inflated symbolism, promotional language, superficial -ing analyses, vague
   attributions, em dash overuse, rule of three, AI vocabulary words, passive
-  voice, negative parallelisms, and filler phrases.
+  voice, negative parallelisms, rhetorical negation ("X, not Y"), abstract
+  agency ("the framework enables..."), and filler phrases.
 license: MIT
 compatibility: claude-code opencode
 allowed-tools:
@@ -460,6 +461,56 @@ Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as
 > ## Performance
 >
 > When users hit a slow page, they leave.
+
+
+### 30. Rhetorical Negation ("X, not Y")
+
+**Problem:** Constructions like "X, not Y" or "X, rather than Y" where Y is a discarded alternative that only exists in the writer's head. The negated half reflects the writing process ("I considered Y and rejected it") and leaks that reasoning into the finished text. If the reader never considered Y, mentioning it just adds noise. State the positive claim on its own.
+
+**Before:**
+> The API uses pagination, not infinite scroll, to keep memory usage predictable.
+
+**After:**
+> The API uses pagination to keep memory usage predictable.
+
+**Before:**
+> We chose composability, rather than inheritance, because it simplifies reuse.
+
+**After:**
+> Composability simplifies reuse in this codebase.
+
+**Keep the construction only when Y is a real alternative the reader is actively comparing.** A migration doc saying "we now use Postgres, not MySQL" is legitimate contrast because MySQL was the previous system. The test: would a reader who had never heard of Y lose anything if Y were removed? If not, cut Y.
+
+
+### 31. Abstract Agency (Concepts as Actors)
+
+**Problem:** Active verbs attached to abstract subjects that cannot actually do anything. "Composability creates learning", "the design provides separation", "the framework enables iteration", "the results show improvement" — none of these subjects truly act. Only people, groups, or organisations act. Rewrite with a real agent, or rephrase so the abstraction appears as the mechanism or reason instead of the actor.
+
+**Before:**
+> Composability creates learning opportunities across the team.
+
+**After:**
+> We learn faster across the team because each component is reusable. (Agent: "we"; composability is the mechanism.)
+
+**Before:**
+> The design provides a clean separation of concerns.
+
+**After:**
+> We separated the concerns cleanly in this design.
+
+**Before:**
+> The framework enables rapid iteration.
+
+**After:**
+> The framework lets us iterate rapidly.
+
+**Before:**
+> The results show that coverage improved.
+
+**After:**
+> We found that coverage improved after adding the integration tests.
+
+**Quick test:** replace the subject with "a rock". If the sentence becomes obviously absurd ("a rock creates learning"), the original had abstract agency and needs a human agent. Idioms like "the study found" fail this test too and should be rewritten, despite being common.
 
 ---
 
