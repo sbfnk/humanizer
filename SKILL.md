@@ -1,6 +1,6 @@
 ---
 name: humanizer
-version: 2.5.1+sbfnk.1
+version: 2.5.1+sbfnk.2
 description: |
   Remove signs of AI-generated writing from text. Use when editing or reviewing
   text to make it sound more natural and human-written. Based on Wikipedia's
@@ -8,7 +8,8 @@ description: |
   inflated symbolism, promotional language, superficial -ing analyses, vague
   attributions, em dash overuse, rule of three, AI vocabulary words, passive
   voice, negative parallelisms, rhetorical negation ("X, not Y"), abstract
-  agency ("the framework enables..."), and filler phrases.
+  agency (intentional-action verbs with non-agent subjects, e.g. "the framework
+  creates..."), and filler phrases.
 license: MIT
 compatibility: claude-code opencode
 allowed-tools:
@@ -34,6 +35,17 @@ When given text to humanize:
 4. **Maintain voice** - Match the intended tone (formal, casual, technical, etc.)
 5. **Add soul** - Don't just remove bad patterns; inject actual personality
 6. **Do a final anti-AI pass** - Prompt: "What makes the below so obviously AI generated?" Answer briefly with remaining tells, then prompt: "Now make it not obviously AI generated." and revise
+
+
+## Hard bans
+
+These words are never acceptable, regardless of context. Treat as a hard rewrite, not a stylistic preference. Pick a replacement that fits the sentence — alternatives depend on context, so none are prescribed here:
+
+- **load-bearing**
+- **fire** (in the sense of *trigger* / *invoke* / *cause to run*; the literal sense — flames, dismissal — is fine)
+- **anchor** (in all metaphorical senses)
+
+These override everything else in this skill — if a rewrite would otherwise use one of these words, pick a different rewrite.
 
 
 ## Voice Calibration (Optional)
@@ -481,36 +493,38 @@ Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as
 
 **Keep the construction only when Y is a real alternative the reader is actively comparing.** A migration doc saying "we now use Postgres, not MySQL" is legitimate contrast because MySQL was the previous system. The test: would a reader who had never heard of Y lose anything if Y were removed? If not, cut Y.
 
+**The most common miss in interactive work: Y comes from the conversation** — an approach discussed and dropped, an earlier draft, a point of prior reasoning. That Y is invisible to anyone reading the finished artifact cold, so it always gets cut. Apply this to everything you write (prose, code comments, docstrings, commit messages), always, not only when explicitly humanizing.
+
 
 ### 31. Abstract Agency (Concepts as Actors)
 
-**Problem:** Active verbs attached to abstract subjects that cannot actually do anything. "Composability creates learning", "the design provides separation", "the framework enables iteration", "the results show improvement" — none of these subjects truly act. Only people, groups, or organisations act. Rewrite with a real agent, or rephrase so the abstraction appears as the mechanism or reason instead of the actor.
+**Problem:** Abstract subjects paired with verbs that imply intentional construction, argument, or proof. "Composability creates learning", "the design argues for separation", "WP3 builds the tools", "the analysis demonstrates the effect" — these verbs need a human agent who creates, argues, builds, or proves. Rewrite with a real agent.
+
+**Not a problem:** Verbs describing inherent function — *enables*, *shows*, *reveals*, *supports*, *computes*, *predicts*, *produces*, *indicates*, *lets*, *allows*. These describe what a thing inherently does and work fine with abstract subjects. "The framework enables iteration" and "the results show improvement" are idiomatic and fine.
+
+**The test:** does the verb require intentional effort or proof? If yes (create, design, make, build, argue, demonstrate, address, tackle, construct), the subject must be a person or group. If no (enable, show, reveal, support, compute), the abstract subject is fine.
 
 **Before:**
 > Composability creates learning opportunities across the team.
 
 **After:**
-> We learn faster across the team because each component is reusable. (Agent: "we"; composability is the mechanism.)
+> Composability helps the team learn faster because each component is reusable.
 
 **Before:**
-> The design provides a clean separation of concerns.
+> WP3 creates the tools that WP4 uses.
 
 **After:**
-> We separated the concerns cleanly in this design.
+> We create the tools in WP3, and use them in WP4.
 
 **Before:**
+> The analysis demonstrates that intervention X works.
+
+**After:**
+> We show in the analysis that intervention X works.
+
+**Before (fine, no change needed):**
 > The framework enables rapid iteration.
-
-**After:**
-> The framework lets us iterate rapidly.
-
-**Before:**
 > The results show that coverage improved.
-
-**After:**
-> We found that coverage improved after adding the integration tests.
-
-**Quick test:** replace the subject with "a rock". If the sentence becomes obviously absurd ("a rock creates learning"), the original had abstract agency and needs a human agent. Idioms like "the study found" fail this test too and should be rewritten, despite being common.
 
 ---
 
