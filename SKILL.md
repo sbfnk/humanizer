@@ -1,6 +1,6 @@
 ---
 name: humanizer
-version: 2.5.1+sbfnk.2
+version: 2.5.1+sbfnk.3
 description: |
   Remove signs of AI-generated writing from text. Use when editing or reviewing
   text to make it sound more natural and human-written. Based on Wikipedia's
@@ -9,7 +9,7 @@ description: |
   attributions, em dash overuse, rule of three, AI vocabulary words, passive
   voice, negative parallelisms, rhetorical negation ("X, not Y"), abstract
   agency (intentional-action verbs with non-agent subjects, e.g. "the framework
-  creates..."), and filler phrases.
+  creates..."), pseudo-clefts ("what it does is..."), and filler phrases.
 license: MIT
 compatibility: claude-code opencode
 allowed-tools:
@@ -525,6 +525,35 @@ Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as
 **Before (fine, no change needed):**
 > The framework enables rapid iteration.
 > The results show that coverage improved.
+
+
+### 32. Pseudo-clefts ("What it does is...")
+
+**Problem:** Sentences reordered so that a wh-word takes the subject position and the real content arrives after a copula: "What it cannot do is look inside those populations", "Where this matters is in the tail", "How it achieves this is by caching", "What makes this different is the denominator", "The reason this fails is that the list is stale". The construction promises emphasis and delivers delay. It spends three or four words before the sentence starts, pushes the verb to the end, and wraps ceremony around an ordinary statement. LLMs reach for it constantly because it imitates a speaker building to a point.
+
+**The fix:** delete the wh-frame and let the sentence begin with its own subject and verb.
+
+**Forms to watch:** What X does/cannot do is..., What matters here is..., What makes X different is..., Where this matters is..., How this works is by..., Why this happens is because..., The reason X happens is that..., The thing that X does is...
+
+**Before:**
+> What it cannot do is look inside those populations.
+
+**After:**
+> It cannot look inside those populations.
+
+**Before:**
+> What makes the method different is that it uses a denominator.
+
+**After:**
+> The method uses a denominator.
+
+**Before:**
+> How the parser handles this is by backtracking to the last valid token.
+
+**After:**
+> The parser backtracks to the last valid token.
+
+**Keep it only when the wh-clause is genuinely contrastive** and the preceding sentence set up the alternative it answers. That is rare. When in doubt, cut it: the direct version is never worse.
 
 ---
 
