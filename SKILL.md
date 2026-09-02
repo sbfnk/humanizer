@@ -31,11 +31,12 @@ The input type controls what you return. See [How to return the result](#how-to-
 
 ## Never use these words
 
-Three words are banned in every context. This rule overrides everything else in this skill. If a rewrite would use one of them, choose a different rewrite. Replacements depend on the sentence, so none are listed here.
+Four words are banned in every context. This rule overrides everything else in this skill. If a rewrite would use one of them, choose a different rewrite. Replacements depend on the sentence, so none are listed here.
 
 - **load-bearing**
 - **fire**, meaning trigger, invoke, or cause to run. The literal senses, flames and dismissal, are fine.
 - **anchor**, in every metaphorical sense.
+- **carry/carries**, meaning hold or contain data, state, or meaning ("the object carries a prior"). Literal physical carrying is fine.
 
 ## Match the writer's voice
 
