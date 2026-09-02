@@ -1,20 +1,20 @@
 ---
 name: humanizer
 description: |
-  Rewrite text that sounds AI-generated while keeping the writer's facts,
-  meaning, and voice. Use when editing or reviewing prose for inflated claims,
+  Rewrite AI-sounding text so it reads naturally without changing what it says.
+  Use when editing or reviewing prose for inflated claims,
   sales language, vague sources, repetitive structure, stock AI words, passive
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
   Local additions: banned words, rhetorical negation ("X, not Y"), abstract
   agency, and pseudo-clefts ("what it does is...").
 license: MIT
 metadata:
-  version: "2.11.0+sbfnk.1"
+  version: "2.11.2+sbfnk.1"
 ---
 
 # Humanizer: remove AI writing patterns
 
-Rewrite text that sounds AI-generated so it reads like the writer, not a chatbot. Keep the writer's facts, meaning, and voice.
+Rewrite AI-sounding text so it reads like the writer, not a chatbot. Do not change what it says or make up details.
 
 The patterns below come from Wikipedia's ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup.
 
