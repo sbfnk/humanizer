@@ -99,6 +99,12 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 | 35 | **Rejecting fake alternatives** | "A tempting option would be to..., but" | Remove the fake option and keep real choices |
 | 36 | **Concepts acting like people** | "The analysis demonstrates that X works" | Give the verb a real agent, or use a verb of inherent function |
 | 37 | **What it does is** | "What it cannot do is look inside" | Delete the wh-frame and start with the subject |
+| 38 | **Writing about yourself in the third person** | "The lead investigator will devote 30% of their time" | "I will devote 30% of my time" |
+| 39 | **One thing under several names** | "retry budget", "retry allowance", "backoff limit" | Pick one name and grep for the alternatives across every file |
+| 40 | **Negation where a description exists** | "a constraint nothing can satisfy" | "unsatisfiable", or state the mechanism |
+| 41 | **"so" as a connective on every other sentence** | "It defaults to `auto`, so it switches on, so the legs cannot resolve" | Delete most of them and let sentence order show the cause |
+| 42 | **Trailing "and the X it Ys"** | "...using AI to write code, and the review that requires" | Give the tail a main verb or cut it |
+| 43 | **"and" where the relation is adversative** | "Caching raises throughput, and the gain does not last" | Use "but" and say what the contrast is |
 
 ### Chatbot patterns
 
@@ -153,6 +159,7 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 
 ## Version history
 
+- **2.11.2+sbfnk.2** - Local fork additions: third-person self-reference (§38), document-wide name drift (§39), negation where a description exists (§40), "so" chained as a connective (§41), trailing coordination that says nothing about its tail (§42), and "and" where the relation is adversative (§43). 43 patterns total.
 - **2.11.2+sbfnk.1** - Local fork additions on top of upstream 2.11.2: banned words (§ "Never use these words", now four including carry/carries), the "X, not Y" compressed form and conversation-derived Y in §35, concepts acting like people (§36), and pseudo-clefts (§37). 37 patterns total.
 - **2.11.2** - Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
 - **2.11.1** - Added a Claude Desktop-ready release package with one regular `humanizer/SKILL.md` file. GitHub's source archive still keeps the plugin symlink (fixes #224). No change to the 35 patterns.

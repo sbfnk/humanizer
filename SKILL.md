@@ -6,10 +6,11 @@ description: |
   sales language, vague sources, repetitive structure, stock AI words, passive
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
   Local additions: banned words, rhetorical negation ("X, not Y"), abstract
-  agency, and pseudo-clefts ("what it does is...").
+  agency, pseudo-clefts ("what it does is..."), negation where a description
+  exists, and connectives that flatten a contrast into a list.
 license: MIT
 metadata:
-  version: "2.11.2+sbfnk.1"
+  version: "2.11.2+sbfnk.2"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -60,7 +61,7 @@ When personality fits, keep the writer's opinions, uncertainty, mixed feelings, 
 
 ### 1. Inflated claims about importance and legacy
 
-**Words to watch:** stands/serves as, is a testament/reminder, a vital/significant/crucial/pivotal/key role/moment, underscores/highlights its importance/significance, reflects broader, symbolizing its ongoing/enduring/lasting, contributing to the, setting the stage for, marking/shaping the, represents/marks a shift, key turning point, evolving landscape, focal point, indelible mark, deeply rooted
+**Words to watch:** stands/serves as, is a testament/reminder, a vital/significant/crucial/pivotal/key role/moment, underscores/highlights its importance/significance, reflects broader, symbolizing its ongoing/enduring/lasting, contributing to the, setting the stage for, marking/shaping the, represents/marks a shift, key turning point, evolving landscape, focal point, indelible mark, deeply rooted, and that is the lesson/point/whole argument
 **Problem:** AI writing often claims that ordinary details mark a major change, prove a legacy, or reflect a broad trend.
 **Before:**
 > The Statistical Institute of Catalonia was officially established in 1989, marking a pivotal moment in the evolution of regional statistics in Spain. This initiative was part of a broader movement across Spain to decentralize administrative functions and enhance regional governance.
@@ -429,7 +430,7 @@ The test: does the verb need intentional effort or proof? If it does (create, de
 
 ### 37. What it does is
 
-**Phrases to watch:** What X does/cannot do is, What matters here is, What makes X different is, Where this matters is, How this works is by, Why this happens is because, The reason X happens is that, The thing that X does is
+**Phrases to watch:** What X does/cannot do is, What matters here is, What makes X different is, Where this matters is, How this works is by, Why this happens is because, The reason X happens is that, The thing that X does is, X is why Y, that is why
 **Problem:** AI writing reorders sentences so a wh-word takes the subject position and the real content arrives after a copula. The form promises emphasis and delivers delay. It spends three or four words before the sentence starts and pushes the verb to the end. Delete the wh-frame and let the sentence begin with its own subject and verb.
 **Before:**
 > What it cannot do is look inside those populations.
@@ -439,8 +440,167 @@ The test: does the verb need intentional effort or proof? If it does (create, de
 > How the parser handles this is by backtracking to the last valid token.
 **After:**
 > The parser backtracks to the last valid token.
+**Before (the "is why" mirror):**
+> The input is why this needs the machinery.
+**After:**
+> This needs the machinery because the input is never observed.
 
 Keep the form when the wh-clause answers a contrast the previous sentence set up. That is rare. When unsure, cut it, because the direct version is never worse.
+
+**Most of these hide mid-sentence, not at the start.** They follow a subordinator, where a scan
+anchored to sentence openings will miss them: "so that **what varies is** the machinery", "and
+**what the tool adds is** a way to check it", "because **what matters here is** the cost".
+Search for the wh-word plus a copula anywhere in the sentence, not just after a full stop. The
+reverse order hides the same way: "publishing them **is what** allows a reviewer to catch it".
+
+### 38. Writing about yourself in the third person
+
+**Problem:** In a document the author signs, AI writing slips into naming them as a role. "The
+lead investigator will devote 30% of their time", "the applicant has published", "the author
+argues". This reads as a form filled in about someone else, and it sits oddly beside the first
+person the rest of the document uses. It happens most in sections drafted from a template, where the template's third person survives
+the rewrite.
+
+The test: would the person signing this say it aloud about themselves? Convert to first person and
+keep it consistent across the whole document, including boxes and appendices drafted separately.
+**Before:**
+> Some participants are junior to the lead investigator in a group they direct.
+**After:**
+> Some participants are junior to me in a group I direct.
+
+### 39. One thing under several names
+
+**Problem:** §11 covers synonym cycling inside a passage. The document-wide version is harder to see
+and more damaging: the central object of a long document acquires two or three names as it is edited
+over many sessions, and no single passage looks wrong. "retry budget" against "retry allowance"
+against "backoff limit"; "onboarding flow" against "sign-up journey" against "the activation path".
+A reader who meets the second name assumes it is a second thing.
+
+Pick one name and grep for the alternatives across every file, including figures, captions, appendices
+and anything drafted separately. Do this once at the end rather than while rewriting, because the
+drift is invisible sentence by sentence.
+
+### 40. Negation where a description exists
+
+**Phrases to watch:** a constraint nothing can satisfy, an equation nobody can solve, a deadline no one can meet, a promise X cannot keep, a bar the code will never meet, a question that has no answer, a lock no key opens, the part nobody can write down, the rise does not last, the effect does not persist
+**Problem:** AI writing says what a thing fails to do instead of describing what it does. The commonest form takes a term that already has a plain adjective and expands it into a noun plus a relative clause with an indefinite negative subject (nothing, nobody, no one) or a named agent that fails. The expansion adds rhythm and a faint air of paradox while adding no information. The tell is that one ordinary word already covers it: unsatisfiable, unsolvable, impossible. Use the adjective, or state the mechanism.
+**Before:**
+> The bot rewrote the entry to a constraint nothing can satisfy.
+**After:**
+> The bot rewrote the entry to `">= 2.0, < 1.9"`, which is unsatisfiable.
+**Before:**
+> The declared range is a promise the test matrix cannot keep.
+**After:**
+> No release of the library satisfies both the declared range and the oldest supported runtime.
+
+The possessive-agent variant hides the same move behind a specific noun: "a bar
+the code will never meet", "a wall the parser cannot climb". Name the actual
+limit instead.
+
+**The bare-negation variant has no relative clause and is easier to miss.**
+"Training accuracy rises, and the gain does not last" reports an absence
+where the writer knows the shape of the thing. Say what happens: accuracy peaks
+and then declines. The test: does the source support a positive description? If it
+does, a negation is a refusal to give it.
+**Before:**
+> The gain does not last.
+**After:**
+> Accuracy peaks at epoch 6 and declines for the rest of training.
+
+**Headings and topic sentences attract this most**, because an absence sounds
+like a hook: "The part nobody can write down", "The term nobody believes", "The
+question the data cannot answer". The subject of the passage has a name, so use
+it: "The shape of the curve is unknown".
+
+**Grep for `never`, `nobody`, `nothing`, `no one` and `none`, then judge each
+one.** These are ordinary words and most uses are fine. The fault is the absence
+used for effect: as a hook, a punchline, or a way of sounding weighty about a
+fact the writer could simply state. "The value is never logged" trades on the
+drama of the absence, where "the value is recomputed from the last checkpoint and
+every update since" says what happens. "It buys almost nothing" is a flourish
+where "1.6 ms per request" is the answer.
+
+The test: does the sentence gain stakes from the absence? If the absence *is* the
+fact, keep the word. "the standard library has no function that does both" and
+"readings from 11 sites, none continuous" are plain reporting, and rewriting
+them costs clarity.
+
+Where a number is available, prefer the number over any phrasing of absence:
+"costs almost nothing" becomes "costs 1.6 ms per request".
+
+**Check the meaning survives.** De-negating by reflex inverts claims: "they show
+what happens when no cache is added" became "what happens when a cache is
+added", which says the opposite. Reread each rewrite against the fact it
+reports.
+
+### 41. "so" as a connective on every other sentence
+
+**Problem:** "so" meaning "therefore" is fine once or twice in a piece. AI writing reaches for it at every causal step, opening sentences with it and chaining clauses with it, until the prose reads as one long deduction. The reader stops seeing it as reasoning and starts hearing a tic.
+
+Count them. More than about one per page of prose is too many. Most can simply be deleted, because the causal link is already obvious from the order of the sentences; others want a full stop, "because", "which is why", or a restructure.
+**Before:**
+> It defaults to `auto`, so it switches on for bot PRs, so every dependency is forced to its newest version, so the oldest-runtime legs cannot resolve.
+**After:**
+> It defaults to `auto` and switches on for bot PRs. That forces every dependency to its newest version, and the oldest-runtime legs then cannot resolve.
+**Before:**
+> The manifest pinned a git revision, so the registry was ignored.
+**After:**
+> The manifest pinned a git revision, which overrode the registry.
+
+The same applies to "so" used for "i.e." before a restatement ("the resolver
+backtracks, so it picks 0.9"). If the clause restates rather than concludes,
+cut the connective and let the two statements stand.
+
+### 42. Trailing "and the X it Ys" that says nothing about X
+
+**Shape:** a clause, a comma, "and the" (or "and what"), then a second noun phrase whose only verb sits inside a relative clause, often with the relativiser dropped. The sentence ends there.
+**Problem:** The tail names a consequence of what came before and then abandons it. Nothing is predicated of it. The construction implies the writer has weighed the downstream work while saying nothing about it. Either give the tail a main verb of its own, or cut it.
+**Before:**
+> The work is now about using AI to write code, and the review and testing that requires.
+**After:**
+> The work is now about using AI to write code. Reviewing that output takes longer than producing it, and nobody has costed that.
+**Before:**
+> The fast path is a single indexed lookup, cheap and exact, and the same index the writer already builds.
+**After:**
+> The fast path is a single indexed lookup, cheap and exact. It reuses the index the writer already builds.
+
+**The test:** ask "what about it?" of the tail. When the text never answers, the tail is decoration.
+
+**Headings take the same shape and are worth checking separately:** "The
+unknown, and two rivals", "Two winters, and why not one". The comma promises a
+second thought and delivers a gesture. Name both halves ("Three candidate ranking
+functions") or cut the tail.
+
+A tail that does have a copula but asserts only importance ("..., and that is the
+lesson of the session") is not this rule. That is §1.
+
+**Do not flag genuine coordination or list items.** "the account must exist, and the invitations must be out" has its own main verb. "`parse`, `merge`, and the round-trip through disk" is the last item of a list. Both are fine. A grep for `, and the` over-matches both by a wide margin, and hard-wrapped text hides the pattern across line breaks. Normalise whitespace first, treat the matches as candidates, then check each one by hand for a main verb.
+
+### 43. "and" where the relation is adversative
+
+**Problem:** AI writing joins clauses with "and" whatever the logical relation
+between them. When the second clause qualifies, limits or contradicts the first,
+"and" flattens the contrast and the sentence reads as a list of facts that
+happen to sit together. The reader has to work out the relation the writer
+already knew.
+
+The test: could you insert "but", "though", "yet" or "while"? If so, the
+connective was wrong, and the sentence often needs rewriting rather than
+swapping the word, because the flattening usually comes with vagueness about
+what the contrast is.
+**Before:**
+> Caching raises throughput, and the gain does not last.
+**After:**
+> Caching raises throughput, but the gain disappears once the working set
+> outgrows the cache.
+**Before:**
+> The model fits the training set, and it fails on the held-out one.
+**After:**
+> The model fits the training set but fails on the held-out one.
+
+The same applies in reverse: do not reach for "but" when the clauses agree.
+Watch for "and" chaining three clauses where the last one turns, which hides the
+turn in the middle of a list.
 
 ## Check for false positives
 
@@ -498,6 +658,15 @@ These details often carry the writer's voice. Keep them unless they hurt the mea
    - **"Did the rewrite add or remove any fact, name, number, date, quote, citation, ranking, or other claim?"**
    Treat any unsupported addition or lost claim as an error.
 4. Write the final version. State each point naturally instead of patching one flagged phrase at a time. If a sentence stays awkward, rewrite the paragraph around its main point. Apply the dash rule in §14.
+5. **Re-scan what you just wrote.** The rewrite is new prose and has the same tells as the
+   original. A fix for one pattern routinely introduces another: replacing a pseudo-cleft with a
+   direct sentence is easy, writing a fresh pseudo-cleft while doing it is easier.
+6. **Re-scan after moving text.** A block lifted from one section to another brings back whatever was
+   fixed in it, because the fix lived in the old copy. Moving is not editing, and the checks that
+   passed before the move do not survive it.
+7. **Check any project-specific banned words mechanically.** A writer's own list ("never say carry",
+   "never say leverage") cannot be held in mind while composing. Grep for each one after every pass,
+   including passes that only moved text.
 
 Return the result required by [How to return the result](#how-to-return-the-result).
 

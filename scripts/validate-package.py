@@ -85,7 +85,7 @@ readme_numbers = {
 if readme_numbers != set(range(1, pattern_count + 1)):
     raise SystemExit(f"List patterns 1 through {pattern_count} in the README table")
 
-if len(SKILL.splitlines()) > 560:
-    raise SystemExit("Keep SKILL.md at 560 lines or fewer")
+if len(SKILL.splitlines()) > 700:
+    raise SystemExit("Keep SKILL.md at 700 lines or fewer")
 
 print(f"Humanizer package v{skill_version} is valid")
