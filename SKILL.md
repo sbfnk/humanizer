@@ -428,7 +428,7 @@ The test: does the verb need intentional effort or proof? If it does (create, de
 Keep the form when the wh-clause answers a contrast the previous sentence set up. That is rare. When unsure, cut it, because the direct version is never worse.
 
 **Most of these hide mid-sentence, not at the start.** They follow a subordinator, where a scan
-anchored to sentence openings will miss them: "so that **what varies is** the machinery", "and
+that only checks sentence openings will miss them: "so that **what varies is** the machinery", "and
 **what the tool adds is** a way to check it", "because **what matters here is** the cost".
 Search for the wh-word plus a copula anywhere in the sentence, not just after a full stop. The
 reverse order hides the same way: "publishing them **is what** allows a reviewer to catch it".
