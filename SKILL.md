@@ -578,6 +578,9 @@ what the contrast is.
 **After:**
 > The model fits the training set but fails on the held-out one.
 
+The first example also contains a bare negation (§30), and the rewrite fixes both. When only
+the connective is wrong, as in the second, changing it is enough.
+
 The same applies in reverse: do not reach for "but" when the clauses agree.
 Watch for "and" chaining three clauses where the last one turns, which hides the
 turn in the middle of a list.
