@@ -8,7 +8,8 @@ description: |
   Local additions: banned words, conversation-derived "X, not Y", abstract agency,
   pseudo-clefts, third-person self-reference, name drift, negation where a
   description exists, "so" chains, trailing coordination, flattened contrasts,
-  wh-clauses where a noun belongs, and checking voice against your own output.
+  wh-clauses where a noun belongs, checking voice against your own output, and
+  paired opposites used as a label.
 license: MIT
 metadata:
   version: "3.0.0+sbfnk.2"
@@ -631,6 +632,31 @@ voice. Weight that fraction and discount the rest.
 
 When no unaided sample exists, say so and ask, instead of inferring the voice from
 material the model wrote.
+
+### 36. A thing and its opposite offered as a label
+
+**Problem:** AI writing names a topic by pairing a term with its own negation:
+"what the cases could and could not support", "what the model can and cannot
+tell you", "what we know and what we do not". The pair covers every case, so it
+excludes nothing and states nothing. It reads as balanced and careful while
+committing to no claim at all, and it is often used as a heading, where it
+promises a finding the section then has to supply anyway.
+
+The test: does the phrase rule anything out? "What the cases could and could not
+support" is true of any data set ever collected. If the writer already knows
+which side the answer falls on, say that side.
+**Before:**
+> This section sets out what the cases could and could not support.
+**After:**
+> The cases fix the peak timing and leave the rise time anywhere between six and
+> eleven days.
+**Before:**
+> ## What the serosurvey can and cannot tell us
+**After:**
+> ## Why the serosurvey settles the rise time
+
+The same shape appears as "whether or not", "for better or worse" and "to a
+greater or lesser extent". Each names a range and picks no point in it.
 
 ## When not to act
 

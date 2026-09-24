@@ -74,9 +74,9 @@ Humanizer marks every tell it finds, strongest first. It drafts a rewrite withou
 
 When you paste text, Humanizer shows its work: the first rewrite, a short critique of anything that still sounds artificial, and the final version. Point it at a file and it changes only the prose, leaving code, data, frontmatter, and link targets alone. Personal writing keeps the writer's opinions and quirks. Technical and reference prose stays neutral and plain.
 
-## The 35 patterns
+## The 36 patterns
 
-The patterns are numbered by strength and frequency. The first five justify an edit on a single sighting. Patterns marked *weak alone* count only when several tells share a passage, because a careful writer may use any one of them on purpose. Patterns 26 to 35 are local to this fork.
+The patterns are numbered by strength and frequency. The first five justify an edit on a single sighting. Patterns marked *weak alone* count only when several tells share a passage, because a careful writer may use any one of them on purpose. Patterns 26 to 36 are local to this fork.
 
 ### A. Staging instead of stating
 
@@ -142,6 +142,7 @@ The patterns are numbered by strength and frequency. The first five justify an e
 | 33 | **"and" where the relation is adversative** | "Caching raises throughput, and the gain does not last" | Use "but" and say what the contrast is |
 | 34 | **Wh-clauses where a noun belongs** | "### Where the programme works" | "### Setting" |
 | 35 | **Checking voice against your own output** | "This phrase is all over the notes, so it is the writer's voice" | AI-tagged notes and prior drafts are not evidence; weight unaided text |
+| 36 | **A thing and its opposite offered as a label** | "what the cases could and could not support" | Say which side the answer falls on |
 
 ## Full example
 
