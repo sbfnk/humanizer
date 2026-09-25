@@ -74,7 +74,7 @@ Humanizer marks every tell it finds, strongest first. It drafts a rewrite withou
 
 When you paste text, Humanizer shows its work: the first rewrite, a short critique of anything that still sounds artificial, and the final version. Point it at a file and it changes only the prose, leaving code, data, frontmatter, and link targets alone. Personal writing keeps the writer's opinions and quirks. Technical and reference prose stays neutral and plain.
 
-## The 33 patterns
+## The 35 patterns
 
 The patterns are numbered by strength and frequency. The first five justify an edit on a single sighting. Patterns marked *weak alone* count only when several tells share a passage, because a careful writer may use any one of them on purpose. Patterns 26 to 35 are local to this fork.
 
