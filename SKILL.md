@@ -7,7 +7,8 @@ description: |
   language, stock AI words, bold labels, or filler. Based on Wikipedia's "Signs of AI writing."
   Local additions: banned words, conversation-derived "X, not Y", abstract agency,
   pseudo-clefts, third-person self-reference, name drift, negation where a
-  description exists, "so" chains, trailing coordination, and flattened contrasts.
+  description exists, "so" chains, trailing coordination, flattened contrasts,
+  wh-clauses where a noun belongs, and checking voice against your own output.
 license: MIT
 metadata:
   version: "3.0.0+sbfnk.1"
@@ -584,6 +585,52 @@ the connective is wrong, as in the second, changing it is enough.
 The same applies in reverse: do not reach for "but" when the clauses agree.
 Watch for "and" chaining three clauses where the last one turns, which hides the
 turn in the middle of a list.
+
+### 34. Wh-clauses where a noun belongs
+
+**Watch for:** headings and subjects built as a bare question: What X does, What X is
+worth, What exists at the end, What the arrangement builds, Where this matters, Where X
+works, How X deepens, Why X matters, what is worth measuring. Also the same shape as
+the subject of a sentence: "What can be known during an outbreak is fixed by..."
+**Problem:** A question stands where a name belongs. The thing under discussion has a
+noun and the wh-clause declines to supply it, so a heading reads like a slide title or
+an FAQ entry and a subject arrives three or four words late. It also stages: the
+heading poses a question the text then answers, which adds a beat before any content.
+This is the bare-nominal relative of §27, and needs no copula to appear.
+**Before:**
+> ### Where the programme works
+> ### What exists at the end
+> ### How the programme deepens
+**After:**
+> ### Setting
+> ### Beyond the award
+> ### Trajectory
+
+**Before (as a subject):**
+> What can be known during an outbreak is fixed largely by what was being measured
+> before it.
+**After:**
+> An outbreak response is limited by whatever was being measured before it began.
+
+The test: does a noun phrase name the same thing? Then use the noun. Keep the wh-form
+for a question the reader has actually just asked, which is rare, and for a quoted
+question.
+
+### 35. Checking voice against your own output
+
+**Problem:** Deciding whether a phrase belongs to the writer means finding it in text
+the writer produced unaided. Notes tagged as AI-written, earlier assistant turns,
+prior drafts from the same tooling and summaries of meetings all fail that test. A
+phrase saturating those sources is evidence of a model habit and says nothing about
+the writer, so treating it as house style preserves the tell and then defends it.
+
+This bites hardest on a long-running project where most of the working notes were
+drafted with assistance. The writer's unaided text may be a small fraction of the
+corpus: an email they typed, a paragraph they rewrote by hand, a comment in their own
+voice. Weight that fraction and discount the rest.
+
+When no unaided sample exists, say so and ask, instead of inferring the voice from
+material the model wrote.
 
 ## When not to act
 
