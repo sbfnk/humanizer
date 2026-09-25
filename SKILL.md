@@ -11,7 +11,7 @@ description: |
   wh-clauses where a noun belongs, and checking voice against your own output.
 license: MIT
 metadata:
-  version: "3.0.0+sbfnk.1"
+  version: "3.0.0+sbfnk.2"
 ---
 
 # Humanizer: remove AI writing patterns
