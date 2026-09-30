@@ -8,8 +8,9 @@
   re-explain context the reader already has. Upstream also took the letter F for that new
   group, so the local group moves to G. Its rules shift by one: 26→27, 27→28, 28→29,
   29→30, 30→31, 31→32, 32→33, 33→34, 34→35, 35→36, 36→37. 37 patterns total.
-- `tells.py` is local to this fork and is what step 8 of the workflow runs. Nothing in CI
-  checks its pattern numbers, so three kinds of drift are corrected by hand here. Its keys
+- `tells.py` is local to this fork and is what step 8 of the workflow runs. Its pattern
+  numbers had nothing checking them until this release, so three kinds of drift are
+  corrected by hand here. Its keys
   for the local rules were shifted with them. Its paired-opposites detectors had been
   wrong since the script landed: they were written against §34, the number that rule held
   while it was an unpushed local commit, and kept it after the rebase renumbered the rule
@@ -26,6 +27,21 @@
   upstream no longer watches and which this fork does not exempt by name either — a real
   loss against the previous release, accepted to keep the detector matching its rule. §2 and §25 also gained
   greppable phrases upstream, and detectors for those are added here.
+- `scripts/check-tells.py` is new, and `.github/workflows/tells.yml` runs it on every pull
+  request. It checks that every `tells.py` key names a real SKILL.md section, that every
+  regex compiles, and that no watch word covered on `origin/main` has lost its detector or
+  dropped from ACT to CHECK. Each of those corresponds to a defect found by hand in this
+  release: a key left behind by a renumber, and coverage lost to a de-duplication. A
+  deliberate drop goes in the script's `WAIVED` list with its reason, so an intended change
+  is a visible edit and an accidental one fails. It sits in its own workflow file because
+  `validate.yml` comes from upstream, and a fork edit there is a conflict carried through
+  every future merge.
+- `scripts/check-upstream-merge.py` is new: it checks that a merge keeps every upstream
+  pattern in its own slot with its own title and body, bar this fork's two documented edits
+  to §1 and §13, and that the fork's own rules stay contiguous after upstream's and unchanged
+  apart from renumbering. It is a merge-time tool rather than a CI gate, because it compares
+  against a moving `upstream/main`: once upstream releases a pattern this fork has not merged,
+  the numbering collides and the check would read red for a healthy fork.
 - Upstream's validator replaced its line budget with a word budget and added a check that
   every SKILL.md section reference points at a real pattern. The budget is widened here
   from 5,500 to 9,500 words to fit the extra rules; the file is at 8485.
