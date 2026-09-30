@@ -15,9 +15,16 @@
   while it was an unpushed local commit, and kept it after the rebase renumbered the rule
   to §36. And three detectors named rules whose watch lists upstream rewrote in 3.1.0:
   §10 now exempts the dictionary compounds it was flagging, and `boasts` and `fostering`
-  were de-duplicated out of §16 and §12, each already being watched by one other rule
-  (§18 and §15). Removing them from the §16 and §12 detectors dropped `boasts` entirely,
-  since §18's detector had never listed it; it is added there now. §2 and §25 also gained
+  were de-duplicated out of §16's and §12's watch lists, each now listed by one other rule
+  (§18 and §15). Following that in the detectors dropped coverage twice over, because
+  neither destination detector covered the same inputs. §18's had never listed `boasts` at
+  all, and §15's requires a literal preceding comma, so a rider attached without one went
+  unwatched. Both are restored: `boasts` under §18, at the ACT tier §16 gave it, since the
+  word is sales language whatever rule lists it; and §15 gains a second detector for the
+  riders that have no ordinary bare use, leaving the comma required for `ensuring` and
+  `reflecting`, which do. §10's narrowing also drops `data-driven` and `end-to-end`, which
+  upstream no longer watches and which this fork does not exempt by name either — a real
+  loss against the previous release, accepted to keep the detector matching its rule. §2 and §25 also gained
   greppable phrases upstream, and detectors for those are added here.
 - Upstream's validator replaced its line budget with a word budget and added a check that
   every SKILL.md section reference points at a real pattern. The budget is widened here
@@ -57,6 +64,7 @@ Grouped patterns 26-35 under "More style patterns" in the skill and README (fixe
 ## 2.11.2+sbfnk.1
 
 - Local fork additions on top of upstream 2.11.2: banned words (§ "Never use these words", now four including carry/carries), the "X, not Y" compressed form and conversation-derived Y in §35, concepts acting like people (§36), and pseudo-clefts (§37). 37 patterns total.
+
 ## 2.11.2
 
 Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
