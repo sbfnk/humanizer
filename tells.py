@@ -57,7 +57,7 @@ PATTERNS = [
     ("CHECK", "15", "shallow -ing rider", r", (highlighting|underscoring|emphasizing|ensuring|reflecting|symbolizing|contributing to|cultivating|fostering|encompassing|showcasing)\b"),
     ("ACT", "16", "sales language", r"\b(nestled|in the heart of|breathtaking|must-visit|renowned|diverse array|groundbreaking|exemplifies|commitment to)\b"),
     ("ACT", "17", "borrowed authority", r"\b(experts (argue|believe|say)|observers have cited|industry reports|some critics|several publications|active social media presence)\b"),
-    ("CHECK", "18", "avoiding is/are/has", r"\b(serves|stands|functions|operates) as\b|\brepresents a\b|\bfeatures (a|four|three|two|over)\b"),
+    ("CHECK", "18", "avoiding is/are/has", r"\b(serves|stands|functions|operates) as\b|\bboasts\b|\brepresents a\b|\bfeatures (a|four|three|two|over)\b"),
 
     # D. Formatting by rule
     ("ACT", "19", "bold label list item", r"^\s*[-*+]\s+\*\*[^*]+:?\*\*:?"),
@@ -66,6 +66,9 @@ PATTERNS = [
     # E. Leftovers
     ("ACT", "22", "chatbot residue", r"\b(i hope this helps|of course!|certainly!|great question|you're absolutely right|would you like|want me to|should i continue|let me know if)\b"),
     ("ACT", "23", "knowledge-limit disclaimer", r"\b(as of my|up to my last training|while specific details are|based on available information|not publicly available|not widely documented|in the (provided|available) sources|maintains a low profile|it is believed that)\b"),
+    ("CHECK", "2", "names what the example showed", r"\b(this shows the importance of|the message was clear|it was a lesson in)\b"),
+    # §25 watches text that describes its own sourcing, assembly or layout
+    ("CHECK", "25", "text describing itself", r"\b(was added to replace|generated from|compiled from|the table below compares|this section is organi[sz]ed by)\b"),
 
     # G. Local additions
     ("CHECK", "27", "abstract subject + intentional verb", r"\b(this|that|it|the \w+) (creates|designs|builds|argues|demonstrates|addresses|tackles|constructs)\b"),

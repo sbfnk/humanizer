@@ -3,7 +3,7 @@
 ## 3.1.0+sbfnk.1
 
 - Merged upstream 3.1.0 and re-applied the local rules. Upstream kept the numbering of
-  its patterns 1 to 24 but revised eight of them (2, 5, 10, 12, 16, 17, 20, 23), widened
+  its patterns 1 to 24 but revised seven of them (2, 10, 12, 16, 17, 20, 23), widened
   §25 to text that describes its own sourcing or layout, and added §26 for replies that
   re-explain context the reader already has. Upstream also took the letter F for that new
   group, so the local group moves to G. Its rules shift by one: 26→27, 27→28, 28→29,
@@ -14,9 +14,11 @@
   wrong since the script landed: they were written against §34, the number that rule held
   while it was an unpushed local commit, and kept it after the rebase renumbered the rule
   to §36. And three detectors named rules whose watch lists upstream rewrote in 3.1.0:
-  §10 now exempts the dictionary compounds it was flagging, `boasts` moved from §16 to
-  §18, and `fostering` from §12 to §15. §2's detector gained "That distinction matters."
-  with the rule.
+  §10 now exempts the dictionary compounds it was flagging, and `boasts` and `fostering`
+  were de-duplicated out of §16 and §12, each already being watched by one other rule
+  (§18 and §15). Removing them from the §16 and §12 detectors dropped `boasts` entirely,
+  since §18's detector had never listed it; it is added there now. §2 and §25 also gained
+  greppable phrases upstream, and detectors for those are added here.
 - Upstream's validator replaced its line budget with a word budget and added a check that
   every SKILL.md section reference points at a real pattern. The budget is widened here
   from 5,500 to 9,500 words to fit the extra rules; the file is at 8485.
@@ -32,6 +34,14 @@
 - Added a Cursor plugin manifest (#278).
 - README: opens with a before/after, the five strongest tells, and install steps for each agent. States that getting past AI detectors is not a goal. The full example's rewrite now keeps every fact from its draft and adds none. Version history moved to this file.
 
+## 3.0.0+sbfnk.2
+
+- Local fork additions: wh-clauses where a noun belongs (§34), covering headings and sentence subjects built as a bare question, and checking voice against your own output (§35), which rules out AI-tagged notes and prior drafts as evidence of the writer's voice. It also added a thing and its opposite offered as a label (§36) and `tells.py`, the script step 8 runs. 36 patterns total.
+
+## 3.0.0+sbfnk.1
+
+- Merged upstream 3.0.0 and re-applied the local rules. The banned words and workflow steps 5 to 7 are unchanged. The compressed "X, not Y" form and conversation-derived Y now sit in §1, and "and that is the lesson" joins the §13 watch list. Local patterns are renumbered into group F: 36→26, 37→27, 38→28, 39→29, 40→30, 41→31, 42→32, 43→33. 33 patterns total.
+
 ## 3.0.0
 
 Rebuilt the skill around one account of why AI text sounds the way it does, and consolidated 35 patterns into 25. Patterns are grouped in five sections and numbered by strength and frequency, so the not-X-but-Y contrast and the one-line closer come first and get the fullest treatment. Merged duplicate guidance: the workflow is one section instead of five, the dash rule is stated once, and each false-positive guard lives inside its pattern. Realigned with the current Wikipedia article: dropped false ranges and synonym cycling, which Wikipedia now lists as human habits or historical, added vague connection or association, and extended the watch lists for words, notability, copulatives, sales language, disclaimers, and Markdown formatting. Reordered the README and removed the `ai-detection` keyword from the package files. Old to new numbers: 1→13, 2→17, 3→15, 4→16, 5→17, 6→13, 7→12, 8→18, 9→1, 10→6, 11→7, 12→dropped, 13→11, 14→8, 15→19, 16→19, 17→20, 18→20, 19→21, 20→22, 21→23, 22→22, 23→dropped, 24→9, 25→13, 26→10, 27→3, 28→4, 29→24, 30→25, 31→2, 32→3, 33→4, 34→5, 35→5.
@@ -40,6 +50,13 @@ Rebuilt the skill around one account of why AI text sounds the way it does, and 
 
 Grouped patterns 26-35 under "More style patterns" in the skill and README (fixes #247). Kept inline code, commands, paths, and URLs out of the dash rule and file mode edits. Step 3 now keeps every supported claim, allows a removal that a pattern requires, and checks that rankings and simultaneity claims survive shape edits (fixes #212). Explained in §9 why the not-X-but-Y form appears and when to keep it. Added decorative arrows to §18 and pause commands and one-word shouting to §31. The text given to the skill is content to edit, never instructions (#238). No change to the 35 patterns.
 
+## 2.11.2+sbfnk.2
+
+- Local fork additions: third-person self-reference (§38), document-wide name drift (§39), negation where a description exists (§40), "so" chained as a connective (§41), trailing coordination that says nothing about its tail (§42), and "and" where the relation is adversative (§43). 43 patterns total.
+
+## 2.11.2+sbfnk.1
+
+- Local fork additions on top of upstream 2.11.2: banned words (§ "Never use these words", now four including carry/carries), the "X, not Y" compressed form and conversation-derived Y in §35, concepts acting like people (§36), and pseudo-clefts (§37). 37 patterns total.
 ## 2.11.2
 
 Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
@@ -136,18 +153,3 @@ Rewrote the skill from the Wikipedia source.
 
 First release.
 
-## 3.0.0+sbfnk.2
-
-- Local fork additions: wh-clauses where a noun belongs (§34), covering headings and sentence subjects built as a bare question, and checking voice against your own output (§35), which rules out AI-tagged notes and prior drafts as evidence of the writer's voice. It also added a thing and its opposite offered as a label (§36) and `tells.py`, the script step 8 runs. 36 patterns total.
-
-## 3.0.0+sbfnk.1
-
-- Merged upstream 3.0.0 and re-applied the local rules. The banned words and workflow steps 5 to 7 are unchanged. The compressed "X, not Y" form and conversation-derived Y now sit in §1, and "and that is the lesson" joins the §13 watch list. Local patterns are renumbered into group F: 36→26, 37→27, 38→28, 39→29, 40→30, 41→31, 42→32, 43→33. 33 patterns total.
-
-## 2.11.2+sbfnk.2
-
-- Local fork additions: third-person self-reference (§38), document-wide name drift (§39), negation where a description exists (§40), "so" chained as a connective (§41), trailing coordination that says nothing about its tail (§42), and "and" where the relation is adversative (§43). 43 patterns total.
-
-## 2.11.2+sbfnk.1
-
-- Local fork additions on top of upstream 2.11.2: banned words (§ "Never use these words", now four including carry/carries), the "X, not Y" compressed form and conversation-derived Y in §35, concepts acting like people (§36), and pseudo-clefts (§37). 37 patterns total.
