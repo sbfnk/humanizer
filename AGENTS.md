@@ -18,6 +18,11 @@ Keep the skill portable. Do not write instructions that limit it to one or two a
 - `.cursor-plugin/plugin.json` describes the Cursor plugin. Omit a `skills` path so Cursor loads the root `SKILL.md`.
 - `agents/openai.yaml` holds the display name, short description, and default prompt for OpenAI-compatible agents.
 - `scripts/validate-package.py` checks package files and shared values.
+- `scripts/check-upstream-merge.py` checks a merge from upstream: every upstream pattern
+  present in its own slot with its own title, its body unchanged except for the fork's two
+  documented edits to §1 and §13, and the fork's own rules contiguous after upstream's and
+  unchanged from before the merge apart from renumbering. Run it as
+  `python3 scripts/check-upstream-merge.py upstream/main` before committing a merge.
 - `tells.py` is local to this fork. It greps for the mechanically detectable tells and is what
   step 8 of the skill's workflow runs. Its table is keyed on pattern numbers and nothing in CI
   checks them, so a renumber means updating it by hand.
