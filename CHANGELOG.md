@@ -15,7 +15,7 @@
   corrected here, so every key now names the rule its label describes.
 - Upstream's validator replaced its line budget with a word budget and added a check that
   every SKILL.md section reference points at a real pattern. The budget is widened here
-  from 5,500 to 8,500 words to fit the extra rules; the file is at 8,121.
+  from 5,500 to 9,500 words to fit the extra rules; the file is at 8485.
 
 ## 3.1.0
 

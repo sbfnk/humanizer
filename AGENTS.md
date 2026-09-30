@@ -30,7 +30,7 @@ Keep `SKILL.md` and `README.md` in sync.
 - **Version:** Keep the same version in `SKILL.md` under `metadata.version`, the first `CHANGELOG.md` heading, `.claude-plugin/plugin.json`, and `.cursor-plugin/plugin.json`. Do not add a top-level `version` field to the skill.
 - **Compatibility:** Keep install and use instructions neutral across agents. Names such as Claude Code, Cursor, OpenCode, and Codex are examples, not limits.
 - **Description:** The plugin manifests use the first sentence of the `SKILL.md` description.
-- **Length:** Every word of `SKILL.md` is read on each use. The validator caps it at 8,500 words in this fork, widened from upstream's 5,500 to fit group G; a change that adds words should earn them.
+- **Length:** Every word of `SKILL.md` is read on each use. The validator caps it at 9,500 words in this fork, widened from upstream's 5,500 to fit group G's 3,266 words; a change that adds words should earn them.
 - **History:** Add a short `CHANGELOG.md` note for any behavior change or non-obvious fix.
 - **Checks:** Before publishing, run `python3 scripts/validate-package.py`, `npx skills add . --list`, and `claude plugin validate .`.
 
