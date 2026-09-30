@@ -68,18 +68,18 @@ PATTERNS = [
     ("ACT", "23", "knowledge-limit disclaimer", r"\b(as of my|up to my last training|while specific details are|based on available information|not publicly available|not widely documented|in the (provided|available) sources|maintains a low profile|it is believed that)\b"),
 
     # F. Local additions
-    ("CHECK", "26", "abstract subject + intentional verb", r"\b(this|that|it|the \w+) (creates|designs|builds|argues|demonstrates|addresses|tackles|constructs)\b"),
-    ("ACT", "27", "pseudo-cleft", r"\b(what|where|how|why) [^.;]{0,40}\b(is|are|was|were) (that|to|by|because|a|an|the)\b"),
-    ("ACT", "27", "the reason X is that", r"\bthe reason\b[^.;]{0,40}\bis (that|because)\b"),
-    ("ACT", "27", "is why / that is why", r"\bis why\b"),
-    ("CHECK", "28", "third-person self-reference", r"\bthe (author|applicant|lead investigator|principal investigator)\b"),
+    ("CHECK", "27", "abstract subject + intentional verb", r"\b(this|that|it|the \w+) (creates|designs|builds|argues|demonstrates|addresses|tackles|constructs)\b"),
+    ("ACT", "28", "pseudo-cleft", r"\b(what|where|how|why) [^.;]{0,40}\b(is|are|was|were) (that|to|by|because|a|an|the)\b"),
+    ("ACT", "28", "the reason X is that", r"\bthe reason\b[^.;]{0,40}\bis (that|because)\b"),
+    ("ACT", "28", "is why / that is why", r"\bis why\b"),
+    ("CHECK", "29", "third-person self-reference", r"\bthe (author|applicant|lead investigator|principal investigator)\b"),
     # section 31 is handled by connectives(), which classifies and counts every
     # "so" rather than matching one shape
-    ("CHECK", "32", "trailing coordination", r", and (the|what) [^.;:!?]+[.!?]?$"),
-    ("CHECK", "33", "and where adversative", r"\b(rises|raises|works|fits|improves|increases) [^.;]{0,40}, and (the|it) \w+ (does not|doesn't|fails)\b"),
-    ("CHECK", "30", "negation for effect", r"\b(never|nobody|nothing|no one|none)\b"),
-    ("ACT", "34", "X and not-X as a label", r"\b(can|could|will|would|does|do|did|is|are|has|have|should|must) and (cannot|can not|can't|could not|couldn't|will not|won't|would not|wouldn't|does not|doesn't|do not|don't|did not|didn't|is not|isn't|are not|aren't|has not|hasn't|have not|haven't|should not|shouldn't|must not|mustn't)\b"),
-    ("ACT", "34", "range with no point in it", r"\b(whether or not|for better or worse|to a greater or lesser extent)\b"),
+    ("CHECK", "33", "trailing coordination", r", and (the|what) [^.;:!?]+[.!?]?$"),
+    ("CHECK", "34", "and where adversative", r"\b(rises|raises|works|fits|improves|increases) [^.;]{0,40}, and (the|it) \w+ (does not|doesn't|fails)\b"),
+    ("CHECK", "31", "negation for effect", r"\b(never|nobody|nothing|no one|none)\b"),
+    ("ACT", "35", "X and not-X as a label", r"\b(can|could|will|would|does|do|did|is|are|has|have|should|must) and (cannot|can not|can't|could not|couldn't|will not|won't|would not|wouldn't|does not|doesn't|do not|don't|did not|didn't|is not|isn't|are not|aren't|has not|hasn't|have not|haven't|should not|shouldn't|must not|mustn't)\b"),
+    ("ACT", "35", "range with no point in it", r"\b(whether or not|for better or worse|to a greater or lesser extent)\b"),
 ]
 
 PARA_SECTIONS = ("1", "32", "33")
@@ -191,15 +191,15 @@ def connectives(path, masked):
     ]
 
     for n, ctx in therefore:
-        print(f"{path}:{n}: [ACT §31] so = therefore: ...{ctx}...")
+        print(f"{path}:{n}: [ACT §32] so = therefore: ...{ctx}...")
     for n, ctx in purpose:
-        print(f"{path}:{n}: [CHECK §31] so + modal, purpose or therefore?: ...{ctx}...")
+        print(f"{path}:{n}: [CHECK §32] so + modal, purpose or therefore?: ...{ctx}...")
     for n, word, ctx in subs:
-        print(f"{path}:{n}: [CHECK §31] causal connective '{word}': ...{ctx}...")
+        print(f"{path}:{n}: [CHECK §32] causal connective '{word}': ...{ctx}...")
 
     allowance = max(1, round(pages))
     print(
-        f"{path}: §31 density: {len(therefore)} therefore-sense 'so' in "
+        f"{path}: §32 density: {len(therefore)} therefore-sense 'so' in "
         f"{words} words ({round(pages, 1)} pages, allowance ~{allowance}); "
         f"{len(purpose)} ambiguous, {len(subs)} substitute(s)"
     )
