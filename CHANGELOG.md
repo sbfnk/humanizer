@@ -2,15 +2,20 @@
 
 ## 3.1.0+sbfnk.1
 
-- Merged upstream 3.1.0 and re-applied the local rules. Upstream's patterns 1 to 24 are
-  unchanged; its §25 widened to text describing its own sourcing or layout, and its new
-  §26 covers replies that re-explain context the reader already has. The local group F
-  shifts by one to make room: 26→27, 27→28, 28→29, 29→30, 30→31, 31→32, 32→33, 33→34,
-  34→35, 35→36, 36→37. 37 patterns total.
-- `tells.py` and its workflow step are local to this fork; its table keys moved with the
-  renumbering. Upstream's validator now checks that every SKILL.md section reference
-  points at a real pattern, and its line budget became a word budget, widened here to
-  8,500 words to fit the extra rules.
+- Merged upstream 3.1.0 and re-applied the local rules. Upstream kept the numbering of
+  its patterns 1 to 24 but revised eight of them (2, 5, 10, 12, 16, 17, 20, 23), widened
+  §25 to text that describes its own sourcing or layout, and added §26 for replies that
+  re-explain context the reader already has. Upstream also took the letter F for that new
+  group, so the local group moves to G. Its rules shift by one: 26→27, 27→28, 28→29,
+  29→30, 30→31, 31→32, 32→33, 33→34, 34→35, 35→36, 36→37. 37 patterns total.
+- `tells.py` is local to this fork and is what step 8 of the workflow runs. Nothing in CI
+  checks its pattern numbers, and two were already wrong before this merge: the
+  paired-opposites detectors were keyed to the number that rule held before the rebase
+  that renumbered it, and the paragraph pass named sections no table entry used. Both are
+  corrected here, so every key now names the rule its label describes.
+- Upstream's validator replaced its line budget with a word budget and added a check that
+  every SKILL.md section reference points at a real pattern. The budget is widened here
+  from 5,500 to 8,500 words to fit the extra rules; the file is at 8,121.
 
 ## 3.1.0
 

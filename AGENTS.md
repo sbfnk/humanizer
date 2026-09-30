@@ -10,7 +10,7 @@ Keep the skill portable. Do not write instructions that limit it to one or two a
 
 ## Key files
 
-- `SKILL.md` is the source of truth and the repo's only skill file. It contains portable YAML metadata, an account of why AI text sounds the way it does, and numbered patterns grouped in six sections and ordered by strength and frequency.
+- `SKILL.md` is the source of truth and the repo's only skill file. It contains portable YAML metadata, an account of why AI text sounds the way it does, and numbered patterns grouped in seven sections and ordered by strength and frequency. Group G holds the rules local to this fork.
 - `README.md` explains installation, use, and patterns.
 - `CHANGELOG.md` holds the release notes, newest first. Old notes keep the pattern numbers their release used.
 - `.claude-plugin/plugin.json` describes the Claude plugin and points its skill loader at the root `SKILL.md`.
@@ -18,6 +18,9 @@ Keep the skill portable. Do not write instructions that limit it to one or two a
 - `.cursor-plugin/plugin.json` describes the Cursor plugin. Omit a `skills` path so Cursor loads the root `SKILL.md`.
 - `agents/openai.yaml` holds the display name, short description, and default prompt for OpenAI-compatible agents.
 - `scripts/validate-package.py` checks package files and shared values.
+- `tells.py` is local to this fork. It greps for the mechanically detectable tells and is what
+  step 8 of the skill's workflow runs. Its table is keyed on pattern numbers and nothing in CI
+  checks them, so a renumber means updating it by hand.
 
 ## Rules for changes
 
@@ -27,7 +30,7 @@ Keep `SKILL.md` and `README.md` in sync.
 - **Version:** Keep the same version in `SKILL.md` under `metadata.version`, the first `CHANGELOG.md` heading, `.claude-plugin/plugin.json`, and `.cursor-plugin/plugin.json`. Do not add a top-level `version` field to the skill.
 - **Compatibility:** Keep install and use instructions neutral across agents. Names such as Claude Code, Cursor, OpenCode, and Codex are examples, not limits.
 - **Description:** The plugin manifests use the first sentence of the `SKILL.md` description.
-- **Length:** Every word of `SKILL.md` is read on each use. The validator caps it at 5,500 words; a change that adds words should earn them.
+- **Length:** Every word of `SKILL.md` is read on each use. The validator caps it at 8,500 words in this fork, widened from upstream's 5,500 to fit group G; a change that adds words should earn them.
 - **History:** Add a short `CHANGELOG.md` note for any behavior change or non-obvious fix.
 - **Checks:** Before publishing, run `python3 scripts/validate-package.py`, `npx skills add . --list`, and `claude plugin validate .`.
 

@@ -24,7 +24,7 @@ These are the most common signs of AI writing, and Humanizer rewrites any of the
 4. **A staged run-up:** "Here's the thing." "Honestly?"
 5. **Arguing with no one:** "I'm not saying X, but..."
 
-Humanizer checks for [26 patterns](#the-26-patterns) in all.
+Humanizer checks for [37 patterns](#the-37-patterns) in all.
 
 ## Installation
 
@@ -166,7 +166,7 @@ The patterns are numbered by strength and frequency. The first five justify an e
 |---|---------|--------|-------|
 | 26 | **Re-explaining what the reader knows** | A reply that walks the diagnosis and proves the plan works before the decision | Lead with the decision; leave the diagnosis and the proof for the ticket that follows |
 
-### F. Local additions
+### G. Local additions
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|

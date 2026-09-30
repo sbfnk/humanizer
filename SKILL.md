@@ -421,7 +421,7 @@ A model writes for a reader who shares no context, because that fits the widest 
 >
 > I'd rather keep this PR account specific and open a separate ticket for the `MergeService` fix and the backfill. Let me know if that works.
 
-## F. Local additions
+## G. Local additions
 
 These patterns belong to this fork. Each has its own test for when to act.
 

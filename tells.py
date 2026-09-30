@@ -10,7 +10,7 @@ prose is checked and code is left alone. Reports two tiers:
          marked "weak alone" and the greps SKILL.md itself calls over-matching
          (triads, negations, trailing coordination) land here.
 
-Section 31 is counted rather than listed, because one or two causal "so"s are
+Section 32 is counted rather than listed, because one or two causal "so"s are
 fine and the tell is the density.
 
 Usage: tells.py FILE [FILE...]       [--act] to suppress the CHECK tier
@@ -73,16 +73,16 @@ PATTERNS = [
     ("ACT", "28", "the reason X is that", r"\bthe reason\b[^.;]{0,40}\bis (that|because)\b"),
     ("ACT", "28", "is why / that is why", r"\bis why\b"),
     ("CHECK", "29", "third-person self-reference", r"\bthe (author|applicant|lead investigator|principal investigator)\b"),
-    # section 31 is handled by connectives(), which classifies and counts every
+    # section 32 is handled by connectives(), which classifies and counts every
     # "so" rather than matching one shape
     ("CHECK", "33", "trailing coordination", r", and (the|what) [^.;:!?]+[.!?]?$"),
     ("CHECK", "34", "and where adversative", r"\b(rises|raises|works|fits|improves|increases) [^.;]{0,40}, and (the|it) \w+ (does not|doesn't|fails)\b"),
     ("CHECK", "31", "negation for effect", r"\b(never|nobody|nothing|no one|none)\b"),
-    ("ACT", "35", "X and not-X as a label", r"\b(can|could|will|would|does|do|did|is|are|has|have|should|must) and (cannot|can not|can't|could not|couldn't|will not|won't|would not|wouldn't|does not|doesn't|do not|don't|did not|didn't|is not|isn't|are not|aren't|has not|hasn't|have not|haven't|should not|shouldn't|must not|mustn't)\b"),
-    ("ACT", "35", "range with no point in it", r"\b(whether or not|for better or worse|to a greater or lesser extent)\b"),
+    ("ACT", "37", "X and not-X as a label", r"\b(can|could|will|would|does|do|did|is|are|has|have|should|must) and (cannot|can not|can't|could not|couldn't|will not|won't|would not|wouldn't|does not|doesn't|do not|don't|did not|didn't|is not|isn't|are not|aren't|has not|hasn't|have not|haven't|should not|shouldn't|must not|mustn't)\b"),
+    ("ACT", "37", "range with no point in it", r"\b(whether or not|for better or worse|to a greater or lesser extent)\b"),
 ]
 
-PARA_SECTIONS = ("1", "32", "33")
+PARA_SECTIONS = ("1", "33", "34")
 
 FENCE = re.compile(r"^\s*(```|~~~)")
 INLINE_CODE = re.compile(r"`[^`]*`")
@@ -90,7 +90,7 @@ LINK_TARGET = re.compile(r"\]\([^)]*\)")
 URL = re.compile(r"https?://\S+")
 HEADING = re.compile(r"^(#+)\s+(.*)$")
 
-# Uses of "so" that are not the therefore-sense of section 31.
+# Uses of "so" that are not the therefore-sense of section 32.
 SO_FIXED = re.compile(r"so-called|so\s+far\b|so\s+long\s+as\b|and\s+so\s+on\b", re.IGNORECASE)
 # "so large that", "so much as", "so many that": an intensifier, not a connective
 SO_INTENSIFIER = re.compile(r"so\s+(?:\w+\s+){0,2}?(?:that|as)\b", re.IGNORECASE)
@@ -143,7 +143,7 @@ def flatten(masked):
     """Join prose into unwrapped text, with a character-to-line-number map.
 
     Hard wrapping hides any pattern that spans a line break, which SKILL.md
-    warns about for section 32 and which also splits "so ... can" clauses.
+    warns about for section 33 and which also splits "so ... can" clauses.
     """
     chars, lineof = [], []
     for n, line in enumerate(masked, 1):
@@ -162,7 +162,7 @@ def flatten(masked):
 
 
 def connectives(path, masked):
-    """Section 31: classify and count every causal connective in the prose."""
+    """Section 32: classify and count every causal connective in the prose."""
     text, lineof = flatten(masked)
     words = len(WORD.findall(text))
     pages = max(words / WORDS_PER_PAGE, 1e-9)
