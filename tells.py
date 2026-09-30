@@ -35,7 +35,7 @@ PATTERNS = [
     ("ACT", "1", "X, rather than Y", r"\brather than\b"),
     ("ACT", "1", "instead of Y", r"\binstead of\b"),
     ("CHECK", "1", "split contrast", r"\b(does not|doesn't|did not) mean\b[^.]*\.\s*(It|This|That) means\b"),
-    ("ACT", "2", "dramatic closer", r"\b(read that again|let that sink in|that is the real win|that's the real win)\b"),
+    ("ACT", "2", "dramatic closer", r"\b(read that again|let that sink in|that is the real win|that distinction matters|that's the real win)\b"),
     ("ACT", "3", "sounds-deep saying", r"\b(the real question is|at its core|what really matters|the deeper issue|the heart of the matter)\b"),
     ("ACT", "3", "the X of Y frame", r"\bthe (language|currency|architecture|grammar) of\b"),
     ("ACT", "4", "staged run-up", r"\b(let's (dive|explore|break this down)|here's what you need to know|without further ado|here's the thing|the thing is,|let's be honest|real talk)\b"),
@@ -48,14 +48,14 @@ PATTERNS = [
     ("ACT", "21", "curly quote", r"[“”‘’]"),
     ("CHECK", "6", "possible triad", r"\b\w+, \w+,? and \w+\b"),
     ("CHECK", "9", "stacked qualifier", r"\b(to be fair|it's also possible|could potentially|might arguably|in some cases it may)\b"),
-    ("CHECK", "10", "hyphen pair after noun", r"\b(is|are|was|were|seems|feels) (cross-functional|high-quality|data-driven|client-facing|real-time|long-term|end-to-end|well-known)\b"),
+    ("CHECK", "10", "hyphen pair after noun", r"\b(is|are|was|were|seems|feels) (high-quality|well-known|well-documented|long-term|real-time|client-facing)\b"),
 
     # C. Inflation and borrowed authority
-    ("CHECK", "12", "AI vocabulary", r"\b(additionally|align with|bolstered|crucial|deep dive|delve|enduring|enhance|fostering|garner|interplay|intricate|intricacies|landscape|meticulous(ly)?|pivotal|quietly|showcase|tapestry|testament|underscores?|underscored|valuable|vibrant)\b"),
+    ("CHECK", "12", "AI vocabulary", r"\b(additionally|align with|bolstered|crucial|deep dive|delve|enduring|enhance|garner|interplay|intricate|intricacies|landscape|meticulous(ly)?|pivotal|quietly|showcase|tapestry|testament|underscores?|underscored|valuable|vibrant)\b"),
     ("ACT", "13", "inflated significance", r"\b(stands as a testament|a (pivotal|crucial) moment|plays a (key|crucial|vital) role|marking a|underscores its importance|reflects a broader|enduring legacy|lasting legacy|setting the stage for|evolving landscape|indelible mark|future looks bright|exciting times|step in the right direction|despite these challenges)\b"),
     ("CHECK", "14", "vague connection", r"\b(associated with|in association with|in connection with|linked to|tied to)\b"),
     ("CHECK", "15", "shallow -ing rider", r", (highlighting|underscoring|emphasizing|ensuring|reflecting|symbolizing|contributing to|cultivating|fostering|encompassing|showcasing)\b"),
-    ("ACT", "16", "sales language", r"\b(boasts|nestled|in the heart of|breathtaking|must-visit|renowned|diverse array|groundbreaking|exemplifies|commitment to)\b"),
+    ("ACT", "16", "sales language", r"\b(nestled|in the heart of|breathtaking|must-visit|renowned|diverse array|groundbreaking|exemplifies|commitment to)\b"),
     ("ACT", "17", "borrowed authority", r"\b(experts (argue|believe|say)|observers have cited|industry reports|some critics|several publications|active social media presence)\b"),
     ("CHECK", "18", "avoiding is/are/has", r"\b(serves|stands|functions|operates) as\b|\brepresents a\b|\bfeatures (a|four|three|two|over)\b"),
 
@@ -67,7 +67,7 @@ PATTERNS = [
     ("ACT", "22", "chatbot residue", r"\b(i hope this helps|of course!|certainly!|great question|you're absolutely right|would you like|want me to|should i continue|let me know if)\b"),
     ("ACT", "23", "knowledge-limit disclaimer", r"\b(as of my|up to my last training|while specific details are|based on available information|not publicly available|not widely documented|in the (provided|available) sources|maintains a low profile|it is believed that)\b"),
 
-    # F. Local additions
+    # G. Local additions
     ("CHECK", "27", "abstract subject + intentional verb", r"\b(this|that|it|the \w+) (creates|designs|builds|argues|demonstrates|addresses|tackles|constructs)\b"),
     ("ACT", "28", "pseudo-cleft", r"\b(what|where|how|why) [^.;]{0,40}\b(is|are|was|were) (that|to|by|because|a|an|the)\b"),
     ("ACT", "28", "the reason X is that", r"\bthe reason\b[^.;]{0,40}\bis (that|because)\b"),

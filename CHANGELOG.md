@@ -9,10 +9,14 @@
   group, so the local group moves to G. Its rules shift by one: 26→27, 27→28, 28→29,
   29→30, 30→31, 31→32, 32→33, 33→34, 34→35, 35→36, 36→37. 37 patterns total.
 - `tells.py` is local to this fork and is what step 8 of the workflow runs. Nothing in CI
-  checks its pattern numbers, and two were already wrong before this merge: the
-  paired-opposites detectors were keyed to the number that rule held before the rebase
-  that renumbered it, and the paragraph pass named sections no table entry used. Both are
-  corrected here, so every key now names the rule its label describes.
+  checks its pattern numbers, so three kinds of drift are corrected by hand here. Its keys
+  for the local rules were shifted with them. Its paired-opposites detectors had been
+  wrong since the script landed: they were written against §34, the number that rule held
+  while it was an unpushed local commit, and kept it after the rebase renumbered the rule
+  to §36. And three detectors named rules whose watch lists upstream rewrote in 3.1.0:
+  §10 now exempts the dictionary compounds it was flagging, `boasts` moved from §16 to
+  §18, and `fostering` from §12 to §15. §2's detector gained "That distinction matters."
+  with the rule.
 - Upstream's validator replaced its line budget with a word budget and added a check that
   every SKILL.md section reference points at a real pattern. The budget is widened here
   from 5,500 to 9,500 words to fit the extra rules; the file is at 8485.
@@ -134,7 +138,7 @@ First release.
 
 ## 3.0.0+sbfnk.2
 
-- Local fork additions: wh-clauses where a noun belongs (§34), covering headings and sentence subjects built as a bare question, and checking voice against your own output (§35), which rules out AI-tagged notes and prior drafts as evidence of the writer's voice. 35 patterns total.
+- Local fork additions: wh-clauses where a noun belongs (§34), covering headings and sentence subjects built as a bare question, and checking voice against your own output (§35), which rules out AI-tagged notes and prior drafts as evidence of the writer's voice. It also added a thing and its opposite offered as a label (§36) and `tells.py`, the script step 8 runs. 36 patterns total.
 
 ## 3.0.0+sbfnk.1
 
