@@ -23,15 +23,20 @@ Keep the skill portable. Do not write instructions that limit it to one or two a
   documented edits to §1 and §13, and the fork's own rules contiguous after upstream's and
   unchanged from before the merge apart from renumbering. Run it as
   `python3 scripts/check-upstream-merge.py upstream/main` before committing a merge.
-- `scripts/check-tells.py` checks `tells.py` itself: every pattern key names a real SKILL.md
-  section, every regex compiles, and no watch word covered on `origin/main` has lost its
-  detector or dropped from ACT to CHECK. `.github/workflows/tells.yml` runs it on every pull
-  request. A deliberate drop goes in the script's `WAIVED` list with its reason, which keeps an
-  intended change visible and an accidental one failing. Pass `--against REF` to compare
-  elsewhere.
+- `scripts/check-tells.py` checks `tells.py` itself: every pattern key names a SKILL.md rule
+  that exists, every regex compiles, and against `origin/main` no detector has been removed or
+  demoted from ACT to CHECK and no enumerable watch word has lost coverage. The first gate
+  catches a key naming no rule at all; a key pointing at the wrong existing rule still passes,
+  which is what a renumber produces, so the renumber checklist below is not optional. Roughly a
+  third of the patterns use quantifiers or lookarounds and cannot be expanded into words; those
+  are covered by the removal and demotion gate rather than word by word, and the script prints
+  how many. A deliberate drop goes in `WAIVED_WORDS` with its reason, which keeps an intended
+  change visible and an accidental one failing. `.github/workflows/tells.yml` runs it on pull
+  requests and on pushes to `main`, where the comparison is against itself and so vacuous. Pass
+  `--against REF` to compare elsewhere.
 - `tells.py` is local to this fork. It greps for the mechanically detectable tells and is what
   step 8 of the skill's workflow runs. Its table is keyed on pattern numbers, so a renumber
-  means updating it by hand; `check-tells.py` is what catches a key left behind.
+  means updating it by hand; `check-tells.py` catches a key naming no rule at all, but not one left pointing at the wrong rule.
 
 ## Rules for changes
 

@@ -55,10 +55,10 @@ PATTERNS = [
     ("ACT", "13", "inflated significance", r"\b(stands as a testament|a (pivotal|crucial) moment|plays a (key|crucial|vital) role|marking a|underscores its importance|reflects a broader|enduring legacy|lasting legacy|setting the stage for|evolving landscape|indelible mark|future looks bright|exciting times|step in the right direction|despite these challenges)\b"),
     ("CHECK", "14", "vague connection", r"\b(associated with|in association with|in connection with|linked to|tied to)\b"),
     ("CHECK", "15", "shallow -ing rider", r", (highlighting|underscoring|emphasizing|ensuring|reflecting|symbolizing|contributing to|cultivating|fostering|encompassing|showcasing)\b"),
-    ## These riders attach without a comma as readily as with one, and none has an
-    ## ordinary bare use, so the comma above is optional for them. The rest of the
-    ## list keeps it: "ensuring correctness" and "reflecting the input" are normal.
-    ("CHECK", "15", "shallow -ing rider", r"\b(fostering|cultivating|showcasing|symbolizing|underscoring)\b"),
+    ## "fostering" is the one rider upstream's de-duplication left uncovered bare:
+    ## §12 watched it without a comma before 3.1.0 moved it here. The lookbehind
+    ## keeps one instance from being reported twice by the comma form above.
+    ("CHECK", "15", "shallow -ing rider", r"(?<!, )\bfostering\b"),
     ("ACT", "16", "sales language", r"\b(nestled|in the heart of|breathtaking|must-visit|renowned|diverse array|groundbreaking|exemplifies|commitment to)\b"),
     ("ACT", "17", "borrowed authority", r"\b(experts (argue|believe|say)|observers have cited|industry reports|some critics|several publications|active social media presence)\b"),
     ("CHECK", "18", "avoiding is/are/has", r"\b(serves|stands|functions|operates) as\b|\brepresents a\b|\bfeatures (a|four|three|two|over)\b"),

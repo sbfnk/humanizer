@@ -21,24 +21,33 @@
   neither destination detector covered the same inputs. §18's had never listed `boasts` at
   all, and §15's requires a literal preceding comma, so a rider attached without one went
   unwatched. Both are restored: `boasts` under §18, at the ACT tier §16 gave it, since the
-  word is sales language whatever rule lists it; and §15 gains a second detector for the
-  riders that have no ordinary bare use, leaving the comma required for `ensuring` and
-  `reflecting`, which do. §10's narrowing also drops `data-driven` and `end-to-end`, which
+  word is sales language whatever rule lists it; and §15 gains a second detector for bare
+  `fostering`, the one rider §12 watched without a comma before 3.1.0 moved it, with a
+  lookbehind so a single instance is not reported by both §15 detectors. The other riders in
+  that list were never covered bare, so widening to them would be an expansion rather than a
+  restoration, and `cultivating` and `fostering` both have ordinary bare uses. §10's narrowing also drops `data-driven` and `end-to-end`, which
   upstream no longer watches and which this fork does not exempt by name either — a real
   loss against the previous release, accepted to keep the detector matching its rule. §2 and §25 also gained
   greppable phrases upstream, and detectors for those are added here.
+- The install commands, the plugin manifests' `homepage` and `repository`, the marketplace
+  owner and the issue template's docs link now point at this fork, so a reader who follows
+  them reaches the package with 37 patterns. `author` stays with upstream, which wrote the
+  framework and 26 of the patterns. The badges and the blind-test issue link stay upstream too.
 - `scripts/check-tells.py` is new, and `.github/workflows/tells.yml` runs it on every pull
   request. It checks that every `tells.py` key names a real SKILL.md section, that every
-  regex compiles, and that no watch word covered on `origin/main` has lost its detector or
-  dropped from ACT to CHECK. Each of those corresponds to a defect found by hand in this
-  release: a key left behind by a renumber, and coverage lost to a de-duplication. A
-  deliberate drop goes in the script's `WAIVED` list with its reason, so an intended change
-  is a visible edit and an accidental one fails. It sits in its own workflow file because
+  regex compiles, and that against `origin/main` no detector has been removed or demoted from
+  ACT to CHECK and no enumerable watch word has lost coverage. The removal and demotion gate
+  is the one that holds: about a third of the patterns use quantifiers or lookarounds and
+  cannot be expanded into words, and the script reports how many rather than passing over
+  them quietly. It catches the coverage this release lost to a de-duplication. It does not
+  catch the other defect fixed here, a key left pointing at the wrong existing rule, because
+  such a key still names a rule that exists. A deliberate drop goes in `WAIVED_WORDS` with
+  its reason, so an intended change is a visible edit and an accidental one fails. It sits in its own workflow file because
   `validate.yml` comes from upstream, and a fork edit there is a conflict carried through
   every future merge.
 - `scripts/check-upstream-merge.py` is new: it checks that a merge keeps every upstream
-  pattern in its own slot with its own title and body, bar this fork's two documented edits
-  to §1 and §13, and that the fork's own rules stay contiguous after upstream's and unchanged
+  pattern in its own slot with its own title and body, failing on any body difference other
+  than this fork's two documented edits to §1 and §13, which it carries by name, and that the fork's own rules stay contiguous after upstream's and unchanged
   apart from renumbering. It is a merge-time tool rather than a CI gate, because it compares
   against a moving `upstream/main`: once upstream releases a pattern this fork has not merged,
   the numbering collides and the check would read red for a healthy fork.

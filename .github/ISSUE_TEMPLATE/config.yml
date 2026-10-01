@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/blader/humanizer/discussions
     about: Ask how to use Humanizer, share results, or say thanks.
   - name: AI detectors still flag the output
-    url: https://github.com/blader/humanizer#humanizer
+    url: https://github.com/sbfnk/humanizer#humanizer
     about: Getting past AI detectors is not a goal. Humanizer edits for human readers.

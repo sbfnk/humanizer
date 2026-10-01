@@ -2,13 +2,11 @@
 """Check tells.py against SKILL.md and against the published version.
 
 Nothing else validates tells.py: it is local to this fork, and the package
-validator reads only SKILL.md, the README and the manifests. Every defect four
-rounds of review found in it was one of the three things checked here.
+validator reads only SKILL.md, the README and the manifests.
 
     python3 scripts/check-tells.py [--against REF]
 
-REF defaults to origin/main, the published state. A REF without tells.py skips
-the comparison rather than failing, so the check still works on a fresh fork.
+REF defaults to origin/main, the published state.
 """
 
 import argparse
@@ -17,20 +15,18 @@ import re
 import subprocess
 import sys
 
-# Watch-list words this fork has deliberately stopped covering. A drop belongs
-# here, with its reason, or the comparison treats it as a regression -- which is
-# the point: a deliberate drop is a visible edit and a silent one is a bug.
-WAIVED = {
+# Watch words this fork has deliberately stopped covering, each with its reason.
+# A deliberate drop belongs here; an accidental one fails the check.
+WAIVED_WORDS = {
     "data-driven": "upstream 3.1.0 narrowed §10 to six compounds and dropped this",
     "end-to-end": "upstream 3.1.0 narrowed §10 to six compounds and dropped this",
-    "cross-functional": "branch §10 exempts dictionary compounds by name",
+    "cross-functional": "§10 exempts dictionary compounds by name",
 }
 
 TIER_RANK = {"CHECK": 0, "ACT": 1}
 
 
 def load_module(source, name):
-    """Import a tells.py given as source text."""
     spec = importlib.util.spec_from_loader(name, loader=None)
     module = importlib.util.module_from_spec(spec)
     exec(compile(source, name, "exec"), module.__dict__)
@@ -44,36 +40,113 @@ def at_ref(ref, path):
     return done.stdout if done.returncode == 0 else None
 
 
+def ref_exists(ref):
+    return subprocess.run(
+        ["git", "rev-parse", "--verify", "--quiet", ref], capture_output=True
+    ).returncode == 0
+
+
 def sections(skill):
-    """number -> title, for every rule heading."""
     return {
         int(m.group(1)): m.group(2).strip()
         for m in re.finditer(r"^### ([0-9]+)\. (.*)$", skill, re.M)
     }
 
 
-def literals(patterns):
-    """Concrete strings the table can match, expanding alternation."""
-    out = set()
-    for _tier, _key, _label, regex in patterns:
-        for branchpat in re.split(r"\|(?![^(]*\))", regex):
-            bases = [branchpat]
-            for group in re.findall(r"\(([^()]*)\)", branchpat):
-                bases = [
-                    b.replace(f"({group})", alt, 1)
-                    for b in bases
-                    for alt in group.split("|")
-                ]
-            for base in bases:
-                text = re.sub(r"\\b|\\s\+|\?|\[|\]|sz", "", base)
-                text = text.replace("\\", "").strip()
-                if text and re.fullmatch(r"[A-Za-z0-9 ,'\-/]+", text):
-                    out.add(text)
+def expand(regex):
+    """Concrete strings `regex` can match, or None where it cannot be enumerated.
+
+    None matters as much as the strings: a pattern that cannot be enumerated is a
+    blind spot in the word-level comparison, and the caller reports how many there
+    are rather than letting them pass unnoticed.
+    """
+    if re.search(r"\\[sdwSDW]|[+*.]|\(\?[=!<]", regex):
+        return None  # quantifiers, classes and lookarounds are not enumerable here
+    out = [""]
+    i = 0
+    while i < len(regex):
+        ch = regex[i]
+        if regex.startswith(r"\b", i):
+            i += 2
+            continue
+        if ch == "(":
+            depth, j = 1, i + 1
+            while j < len(regex) and depth:
+                depth += (regex[j] == "(") - (regex[j] == ")")
+                j += 1
+            inner = regex[i + 1 : j - 1]
+            if inner.startswith("?:"):
+                inner = inner[2:]
+            alts = []
+            for alt in split_top(inner):
+                sub = expand(alt)
+                if sub is None:
+                    return None
+                alts.extend(sub)
+            optional = j < len(regex) and regex[j] == "?"
+            if optional:
+                alts.append("")
+                j += 1
+            out = [a + b for a in out for b in alts]
+            i = j
+            continue
+        if ch == "[":
+            j = regex.index("]", i)
+            chars = list(regex[i + 1 : j])
+            j += 1
+            if j < len(regex) and regex[j] == "?":
+                chars.append("")
+                j += 1
+            out = [a + c for a in out for c in chars]
+            i = j
+            continue
+        if ch == "\\":
+            nxt = regex[i + 1] if i + 1 < len(regex) else ""
+            out = [a + nxt for a in out]
+            i += 2
+            continue
+        if i + 1 < len(regex) and regex[i + 1] == "?":
+            out = [a + ch for a in out] + out
+            i += 2
+            continue
+        out = [a + ch for a in out]
+        i += 1
     return out
 
 
-def strongest(patterns, text):
-    """The strongest tier any pattern fires at on `text`, or None."""
+def split_top(regex):
+    """Split on | at depth zero."""
+    parts, depth, cur = [], 0, ""
+    for ch in regex:
+        depth += (ch == "(") - (ch == ")")
+        if ch == "|" and not depth:
+            parts.append(cur)
+            cur = ""
+        else:
+            cur += ch
+    parts.append(cur)
+    return parts
+
+
+def words_of(patterns):
+    """(word -> strongest tier matching it, number of unenumerable patterns)."""
+    cover, blind = {}, 0
+    for tier, _key, _label, regex in patterns:
+        strings = expand(regex)
+        if strings is None:
+            blind += 1
+            continue
+        for s in strings:
+            s = s.strip()
+            # Keep only strings the regex really matches, so a flawed expansion
+            # cannot invent a word and report it lost later.
+            if s and re.search(regex, s, re.I):
+                if TIER_RANK[tier] > TIER_RANK.get(cover.get(s, "CHECK"), -1) or s not in cover:
+                    cover[s] = tier
+    return cover, blind
+
+
+def strongest_match(patterns, text):
     tiers = [t for t, _k, _l, rx in patterns if re.search(rx, text, re.I)]
     return max(tiers, key=lambda t: TIER_RANK[t]) if tiers else None
 
@@ -94,12 +167,10 @@ def main():
         if int(key) not in skill:
             failures.append(f"§{key} is keyed in tells.py but SKILL.md has no such rule")
             print(f"  MISSING  §{key} keyed in tells.py, absent from SKILL.md")
-    covered = sorted((int(k) for k in keys))
-    print(f"  {len(covered)} of {len(skill)} rules have a detector; all keys resolve"
-          if not failures else "")
+    print(f"  {len(keys)} of {len(skill)} rules have a detector")
 
     print("\n== every regex compiles")
-    for tier, key, label, regex in here.PATTERNS:
+    for _tier, key, label, regex in here.PATTERNS:
         try:
             re.compile(regex)
         except re.error as exc:
@@ -107,40 +178,66 @@ def main():
             print(f"  BROKEN   §{key} {label}: {exc}")
     print(f"  {len(here.PATTERNS)} patterns compile")
 
-    print(f"\n== no coverage or tier regression against {args.against}")
-    ref_tells = at_ref(args.against, "tells.py")
-    ref_skill = at_ref(args.against, "SKILL.md")
-    if ref_tells is None or ref_skill is None:
-        print(f"  SKIPPED  {args.against} has no tells.py to compare against")
+    print(f"\n== no detector removed or demoted since {args.against}")
+    if not ref_exists(args.against):
+        print(f"  FAILED   {args.against} does not resolve, so nothing was compared")
+        failures.append(f"{args.against} does not resolve")
     else:
-        there = load_module(ref_tells, "tells_ref")
-        # Rules get renumbered when upstream adds a pattern, so map old numbers
-        # to new ones by heading text and compare the words, not the numbers.
-        old = sections(ref_skill)
-        lost, demoted = [], []
-        for word in sorted(literals(there.PATTERNS)):
-            probe = f"The team {word} the result."
-            was = strongest(there.PATTERNS, probe)
-            if was is None or any(w in word for w in WAIVED):
-                continue
-            now = strongest(here.PATTERNS, probe)
-            if now is None:
-                lost.append(word)
-            elif TIER_RANK[now] < TIER_RANK[was]:
-                demoted.append((word, was, now))
-        for word in lost:
-            failures.append(f"{word!r} was covered at {args.against} and now matches nothing")
-            print(f"  LOST     {word!r} matched at {args.against}, matches nothing here")
-        for word, was, now in demoted:
-            failures.append(f"{word!r} dropped from {was} to {now}")
-            print(f"  DEMOTED  {word!r} {was} -> {now}, so --act no longer fails on it")
-        if not lost and not demoted:
-            n = len(literals(there.PATTERNS))
-            print(f"  {n} watch words still covered at the same tier or stronger")
-        if WAIVED:
-            print(f"  {len(WAIVED)} deliberate drops waived:")
-            for word, why in sorted(WAIVED.items()):
-                print(f"    {word} -- {why}")
+        ref_tells = at_ref(args.against, "tells.py")
+        ref_skill = at_ref(args.against, "SKILL.md")
+        if ref_tells is None:
+            print(f"  SKIPPED  {args.against} has no tells.py yet")
+        else:
+            there = load_module(ref_tells, "tells_ref")
+            # Rules are renumbered whenever upstream adds a pattern, so match them
+            # by heading text. A regex compared by key alone would look removed.
+            old_titles = sections(ref_skill) if ref_skill else {}
+            here_by_title = {t: n for n, t in skill.items()}
+            rules_here = {k for _t, k, _l, _r in here.PATTERNS}
+            same = {(t, rx) for t, _k, _l, rx in here.PATTERNS}
+            rewritten = set()
+            for tier, key, label, regex in there.PATTERNS:
+                title = old_titles.get(int(key)) if key.isdigit() else None
+                now_key = str(here_by_title.get(title, key)) if title else key
+                if (tier, regex) in same:
+                    continue
+                stronger = any(
+                    rx == regex and TIER_RANK[t] > TIER_RANK[tier]
+                    for t, _k, _l, rx in here.PATTERNS
+                )
+                if stronger:
+                    continue
+                demoted = any(rx == regex for _t, _k, _l, rx in here.PATTERNS)
+                if demoted:
+                    failures.append(f"§{now_key} {label} dropped below {tier}")
+                    print(f"  DEMOTED  §{now_key} {label}: was {tier}, so --act changes verdict")
+                elif now_key not in rules_here:
+                    failures.append(f"§{now_key} {label} has no detector at all any more")
+                    print(f"  REMOVED  §{now_key} {label}: the rule has no detector left")
+                else:
+                    rewritten.add((now_key, label))
+            if rewritten:
+                print(f"  {len(rewritten)} detector(s) rewritten; checking their words:")
+            was, blind_was = words_of(there.PATTERNS)
+            now, _blind_now = words_of(here.PATTERNS)
+            lost, demoted_words = [], []
+            for word, tier in sorted(was.items()):
+                if any(w in word for w in WAIVED_WORDS):
+                    continue
+                got = strongest_match(here.PATTERNS, word)
+                if got is None:
+                    lost.append(word)
+                elif TIER_RANK[got] < TIER_RANK[tier]:
+                    demoted_words.append((word, tier, got))
+            for word in lost:
+                failures.append(f"{word!r} was covered and now matches nothing")
+                print(f"  LOST     {word!r} matched at {args.against}, matches nothing here")
+            for word, old, new in demoted_words:
+                failures.append(f"{word!r} dropped from {old} to {new}")
+                print(f"  DEMOTED  {word!r} {old} -> {new}")
+            print(f"  {len(was)} watch words compared, {len(WAIVED_WORDS)} drops waived")
+            print(f"  {blind_was} of {len(there.PATTERNS)} patterns are not word-enumerable;")
+            print(f"    those are covered by the removal and demotion check above, not by word.")
 
     print(f"\n  failures: {len(failures)}")
     return 1 if failures else 0
