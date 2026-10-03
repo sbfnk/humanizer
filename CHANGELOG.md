@@ -25,7 +25,8 @@
   `fostering`, the one rider §12 watched without a comma before 3.1.0 moved it, with a
   lookbehind so a single instance is not reported by both §15 detectors. The other riders in
   that list were never covered bare, so widening to them would be an expansion rather than a
-  restoration, and `cultivating` and `fostering` both have ordinary bare uses. §10's narrowing also drops `data-driven` and `end-to-end`, which
+  restoration, and `cultivating` has ordinary bare uses. Bare `fostering` is watched because §12
+  watched it before, false positives included, so this is parity rather than a new judgement. §10's narrowing also drops `data-driven` and `end-to-end`, which
   upstream no longer watches and which this fork does not exempt by name either — a real
   loss against the previous release, accepted to keep the detector matching its rule. §2 and §25 also gained
   greppable phrases upstream, and detectors for those are added here.
@@ -35,19 +36,20 @@
   framework and 26 of the patterns. The badges and the blind-test issue link stay upstream too.
 - `scripts/check-tells.py` is new, and `.github/workflows/tells.yml` runs it on every pull
   request. It checks that every `tells.py` key names a real SKILL.md section, that every
-  regex compiles, and that against `origin/main` no detector has been removed or demoted from
-  ACT to CHECK and no enumerable watch word has lost coverage. The removal and demotion gate
-  is the one that holds: about a third of the patterns use quantifiers or lookarounds and
-  cannot be expanded into words, and the script reports how many rather than passing over
-  them quietly. It catches the coverage this release lost to a de-duplication. It does not
-  catch the other defect fixed here, a key left pointing at the wrong existing rule, because
-  such a key still names a rule that exists. A deliberate drop goes in `WAIVED_WORDS` with
-  its reason, so an intended change is a visible edit and an accidental one fails. It sits in its own workflow file because
-  `validate.yml` comes from upstream, and a fork edit there is a conflict carried through
-  every future merge.
+  regex compiles, that a list of fixture phrases is still caught at the tier it names, and
+  that every detector present at `origin/main` survives byte-for-byte. It deliberately does
+  not reason about what a regex matches: the first two attempts expanded alternation into
+  words and both reported success while detectors were being deleted, because an expansion
+  that is wrong in the same way for both versions compares equal. Comparing the regex text
+  is cruder and total. The cost is that a rewritten watch list fails until it is waived in
+  `WAIVED_DETECTORS`, pinned to the row it replaces, which is the conscious decision that
+  was missing when this release lost coverage to a de-duplication. The fixtures cover what
+  the comparison cannot: a detector added since the reference, and a waiver's claim that
+  coverage moved rather than vanished.
 - `scripts/check-upstream-merge.py` is new: it checks that a merge keeps every upstream
   pattern in its own slot with its own title and body, failing on any body difference other
-  than this fork's two documented edits to §1 and §13, which it carries by name, and that the fork's own rules stay contiguous after upstream's and unchanged
+  than this fork's two documented edits to §1 and §13, whose accepted bodies it pins by hash
+  so a later change to either one fails too, and that the fork's own rules stay contiguous after upstream's and unchanged
   apart from renumbering. It is a merge-time tool rather than a CI gate, because it compares
   against a moving `upstream/main`: once upstream releases a pattern this fork has not merged,
   the numbering collides and the check would read red for a healthy fork.

@@ -24,16 +24,17 @@ Keep the skill portable. Do not write instructions that limit it to one or two a
   unchanged from before the merge apart from renumbering. Run it as
   `python3 scripts/check-upstream-merge.py upstream/main` before committing a merge.
 - `scripts/check-tells.py` checks `tells.py` itself: every pattern key names a SKILL.md rule
-  that exists, every regex compiles, and against `origin/main` no detector has been removed or
-  demoted from ACT to CHECK and no enumerable watch word has lost coverage. The first gate
-  catches a key naming no rule at all; a key pointing at the wrong existing rule still passes,
-  which is what a renumber produces, so the renumber checklist below is not optional. Roughly a
-  third of the patterns use quantifiers or lookarounds and cannot be expanded into words; those
-  are covered by the removal and demotion gate rather than word by word, and the script prints
-  how many. A deliberate drop goes in `WAIVED_WORDS` with its reason, which keeps an intended
-  change visible and an accidental one failing. `.github/workflows/tells.yml` runs it on pull
-  requests and on pushes to `main`, where the comparison is against itself and so vacuous. Pass
-  `--against REF` to compare elsewhere.
+  that exists, a short list of `FIXTURES` phrases is still caught at the tier it names, every
+  regex compiles, and every detector present at `origin/main` is still there byte-for-byte. It
+  makes no attempt to work out what a regex matches. Two earlier versions did, by expanding
+  alternation into words, and both passed while coverage was being deleted, so the comparison
+  is now on the regex text alone. A rewritten watch list therefore fails until its row is
+  listed in `WAIVED_DETECTORS` with a reason, keyed on the exact row it replaces. Two limits
+  worth knowing: a key pointing at the wrong existing rule still passes, which is what a
+  renumber produces, so the checklist below is not optional; and the comparison cannot protect
+  a detector added since the reference, which is what `FIXTURES` is for -- add a row there
+  whenever a fix restores coverage. `.github/workflows/tells.yml` runs it on pull requests and
+  on pushes to `main`, where the comparison is against itself and so vacuous.
 - `tells.py` is local to this fork. It greps for the mechanically detectable tells and is what
   step 8 of the skill's workflow runs. Its table is keyed on pattern numbers, so a renumber
   means updating it by hand; `check-tells.py` catches a key naming no rule at all, but not one left pointing at the wrong rule.

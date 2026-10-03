@@ -3,7 +3,7 @@
 
 Run from the repo with a ref for upstream, e.g.  check_upstream.py upstream/main
 """
-import re, subprocess, sys
+import hashlib, re, subprocess, sys
 
 def skill(ref=None):
     if ref is None: return open("SKILL.md").read()
@@ -16,8 +16,8 @@ def at_ref(ref, path):
 
 # Upstream bodies this fork deliberately extends. A third difference is a slip.
 FORK_EDITS = {
-    1: "the fork adds the conversation-derived 'X, not Y' material",
-    13: "the fork extends the watch list with 'and that is the lesson'",
+    1: ("the fork adds the conversation-derived 'X, not Y' material", "5b978e6cbcfbf9c4"),
+    13: ("the fork extends the watch list with 'and that is the lesson'", "c6da550650a2558e"),
 }
 
 
@@ -54,7 +54,13 @@ print("\n== upstream bodies unchanged, bar the fork's two documented edits")
 for n in sorted(up):
     if n in here and here[n][1] != up[n][1]:
         if n in FORK_EDITS:
-            print(f"  EDITED   §{n} {up[n][0]} -- {FORK_EDITS[n]}")
+            why, want = FORK_EDITS[n]
+            got = hashlib.sha256(here[n][1].encode()).hexdigest()[:16]
+            if got == want:
+                print(f"  EDITED   §{n} {up[n][0]} -- {why}")
+            else:
+                print(f"  CHANGED  §{n} {up[n][0]}: fork edit altered ({want} -> {got})")
+                bad += 1
         else:
             print(f"  DIFFERS  §{n} {up[n][0]} (not a documented fork edit)")
             bad += 1
@@ -75,7 +81,9 @@ else:
     for n in mine:
         title, body = here[n]
         if title not in by_title:
-            print(f"  NEW      §{n} {title} (no rule of this name on main)")
+            print(f"  NEW      §{n} {title}: no rule of this name on main, so its")
+            print(f"             body is unchecked -- rename or confirm deliberately")
+            bad += 1
             continue
         src = by_title[title]
         if re.sub(r"§\d+", "§", main[src][1]) != re.sub(r"§\d+", "§", body):
