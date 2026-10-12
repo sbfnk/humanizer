@@ -1,0 +1,26 @@
+# Separate from validate.yml, which comes from upstream: a fork edit inside a
+# file upstream also edits is a conflict carried through every future merge.
+# Upstream has no tells.py, so it will never add a workflow of this name.
+name: Check tells.py
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          # The coverage comparison needs origin/main, which a shallow clone lacks.
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+      - name: Check tells.py against SKILL.md and against origin/main
+        run: python3 scripts/check-tells.py

@@ -10,22 +10,46 @@ Keep the skill portable. Do not write instructions that limit it to one or two a
 
 ## Key files
 
-- `SKILL.md` is the source of truth and the repo's only skill file. It contains portable YAML metadata, an account of why AI text sounds the way it does, and numbered patterns grouped in five sections and ordered by strength and frequency.
-- `README.md` explains installation, use, patterns, and version history.
+- `SKILL.md` is the source of truth and the repo's only skill file. It contains portable YAML metadata, an account of why AI text sounds the way it does, and numbered patterns grouped in seven sections and ordered by strength and frequency. Group G holds the rules local to this fork.
+- `README.md` explains installation, use, and patterns.
+- `CHANGELOG.md` holds the release notes, newest first. Old notes keep the pattern numbers their release used.
 - `.claude-plugin/plugin.json` describes the Claude plugin and points its skill loader at the root `SKILL.md`.
 - `.claude-plugin/marketplace.json` lets users add this repo as a Claude marketplace.
+- `.cursor-plugin/plugin.json` describes the Cursor plugin. Omit a `skills` path so Cursor loads the root `SKILL.md`.
 - `agents/openai.yaml` holds the display name, short description, and default prompt for OpenAI-compatible agents.
 - `scripts/validate-package.py` checks package files and shared values.
+- `scripts/check-upstream-merge.py` checks a merge from upstream: every upstream pattern
+  present in its own slot with its own title, its body unchanged except for the fork's two
+  documented edits to §1 and §13, and the fork's own rules contiguous after upstream's and
+  unchanged from before the merge apart from renumbering. Run it as
+  `python3 scripts/check-upstream-merge.py upstream/main` before committing a merge.
+- `scripts/check-tells.py` checks `tells.py` itself: every pattern key names a SKILL.md rule
+  that exists, a short list of `FIXTURES` phrases is still caught at the tier it names, every
+  regex compiles, and every detector present at `origin/main` is still there byte-for-byte. It
+  makes no attempt to work out what a regex matches. Two earlier versions did, by expanding
+  alternation into words, and both passed while coverage was being deleted, so the comparison
+  is now on the regex text alone. A rewritten watch list therefore fails until its row is
+  listed in `WAIVED_DETECTORS` with a reason, keyed on the exact row it replaces. Two limits
+  worth knowing: a key pointing at the wrong existing rule still passes, which is what a
+  renumber produces, so the checklist below is not optional; and the comparison cannot protect
+  a detector added since the reference, which is what `FIXTURES` is for -- add a row there
+  whenever a fix restores coverage. `.github/workflows/tells.yml` runs it on pull requests and
+  on pushes to `main`, where the comparison is against itself and so vacuous.
+- `tells.py` is local to this fork. It greps for the mechanically detectable tells and is what
+  step 8 of the skill's workflow runs. Its table is keyed on pattern numbers, so a renumber
+  means updating it by hand; `check-tells.py` catches a key naming no rule at all, but not one left pointing at the wrong rule.
 
 ## Rules for changes
 
 Keep `SKILL.md` and `README.md` in sync.
 
-- **Patterns:** Patterns are numbered from 1 without gaps, strongest and most frequent first. A new tell earns a pattern only when no existing pattern already implies it; prefer folding it into an existing pattern. If you add, remove, or renumber a pattern, update the README tables, the README section title, and every §reference. The validator derives the count from the headings.
-- **Version:** Keep the same version in `SKILL.md` under `metadata.version`, the first README version entry, and `.claude-plugin/plugin.json`. Do not add a top-level `version` field to the skill.
-- **Compatibility:** Keep install and use instructions neutral across agents. Names such as Claude Code, OpenCode, and Codex are examples, not limits.
-- **History:** Add a short README version note for any behavior change or non-obvious fix.
-- **Checks:** Before publishing, run `python3 scripts/validate-package.py`, `npx skills add . --list`, and `claude plugin validate .`.
+- **Patterns:** Patterns are numbered from 1 without gaps, strongest and most frequent first. A new tell earns a pattern only when no existing pattern already implies it; prefer folding it into an existing pattern. If you add, remove, or renumber a pattern, update the README tables, the README section title, and every §reference, and `tells.py`'s table keys, then run `python3 scripts/check-tells.py`. The validator derives the count from the headings and checks that README pattern names match them.
+- **Version:** Keep the same version in `SKILL.md` under `metadata.version`, the first `CHANGELOG.md` heading, `.claude-plugin/plugin.json`, and `.cursor-plugin/plugin.json`. Do not add a top-level `version` field to the skill.
+- **Compatibility:** Keep install and use instructions neutral across agents. Names such as Claude Code, Cursor, OpenCode, and Codex are examples, not limits.
+- **Description:** The plugin manifests use the first sentence of the `SKILL.md` description.
+- **Length:** Every word of `SKILL.md` is read on each use. The validator caps it at 9,500 words in this fork, widened from upstream's 5,500 to fit the fork's extra 3,266 words, of which group G is 2,692; a change that adds words should earn them.
+- **History:** Add a short `CHANGELOG.md` note for any behavior change or non-obvious fix.
+- **Checks:** Before publishing, run `python3 scripts/validate-package.py`, `python3 scripts/check-tells.py`, `npx skills add . --list`, and `claude plugin validate .`. After merging upstream, also run `python3 scripts/check-upstream-merge.py upstream/main`. That one stays out of CI deliberately: it compares against a moving `upstream/main`, so the moment upstream releases a pattern this fork has not merged yet, the numbering collides and the check reads red for a fork that is perfectly healthy.
 
 ## Writing style
 

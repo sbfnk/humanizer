@@ -10,7 +10,7 @@ prose is checked and code is left alone. Reports two tiers:
          marked "weak alone" and the greps SKILL.md itself calls over-matching
          (triads, negations, trailing coordination) land here.
 
-Section 31 is counted rather than listed, because one or two causal "so"s are
+Section 32 is counted rather than listed, because one or two causal "so"s are
 fine and the tell is the density.
 
 Usage: tells.py FILE [FILE...]       [--act] to suppress the CHECK tier
@@ -35,7 +35,7 @@ PATTERNS = [
     ("ACT", "1", "X, rather than Y", r"\brather than\b"),
     ("ACT", "1", "instead of Y", r"\binstead of\b"),
     ("CHECK", "1", "split contrast", r"\b(does not|doesn't|did not) mean\b[^.]*\.\s*(It|This|That) means\b"),
-    ("ACT", "2", "dramatic closer", r"\b(read that again|let that sink in|that is the real win|that's the real win)\b"),
+    ("ACT", "2", "dramatic closer", r"\b(read that again|let that sink in|that is the real win|that distinction matters|that's the real win)\b"),
     ("ACT", "3", "sounds-deep saying", r"\b(the real question is|at its core|what really matters|the deeper issue|the heart of the matter)\b"),
     ("ACT", "3", "the X of Y frame", r"\bthe (language|currency|architecture|grammar) of\b"),
     ("ACT", "4", "staged run-up", r"\b(let's (dive|explore|break this down)|here's what you need to know|without further ado|here's the thing|the thing is,|let's be honest|real talk)\b"),
@@ -48,16 +48,22 @@ PATTERNS = [
     ("ACT", "21", "curly quote", r"[“”‘’]"),
     ("CHECK", "6", "possible triad", r"\b\w+, \w+,? and \w+\b"),
     ("CHECK", "9", "stacked qualifier", r"\b(to be fair|it's also possible|could potentially|might arguably|in some cases it may)\b"),
-    ("CHECK", "10", "hyphen pair after noun", r"\b(is|are|was|were|seems|feels) (cross-functional|high-quality|data-driven|client-facing|real-time|long-term|end-to-end|well-known)\b"),
+    ("CHECK", "10", "hyphen pair after noun", r"\b(is|are|was|were|seems|feels) (high-quality|well-known|well-documented|long-term|real-time|client-facing)\b"),
 
     # C. Inflation and borrowed authority
-    ("CHECK", "12", "AI vocabulary", r"\b(additionally|align with|bolstered|crucial|deep dive|delve|enduring|enhance|fostering|garner|interplay|intricate|intricacies|landscape|meticulous(ly)?|pivotal|quietly|showcase|tapestry|testament|underscores?|underscored|valuable|vibrant)\b"),
+    ("CHECK", "12", "AI vocabulary", r"\b(additionally|align with|bolstered|crucial|deep dive|delve|enduring|enhance|garner|interplay|intricate|intricacies|landscape|meticulous(ly)?|pivotal|quietly|showcase|tapestry|testament|underscores?|underscored|valuable|vibrant)\b"),
     ("ACT", "13", "inflated significance", r"\b(stands as a testament|a (pivotal|crucial) moment|plays a (key|crucial|vital) role|marking a|underscores its importance|reflects a broader|enduring legacy|lasting legacy|setting the stage for|evolving landscape|indelible mark|future looks bright|exciting times|step in the right direction|despite these challenges)\b"),
     ("CHECK", "14", "vague connection", r"\b(associated with|in association with|in connection with|linked to|tied to)\b"),
     ("CHECK", "15", "shallow -ing rider", r", (highlighting|underscoring|emphasizing|ensuring|reflecting|symbolizing|contributing to|cultivating|fostering|encompassing|showcasing)\b"),
-    ("ACT", "16", "sales language", r"\b(boasts|nestled|in the heart of|breathtaking|must-visit|renowned|diverse array|groundbreaking|exemplifies|commitment to)\b"),
+    ## "fostering" is the one rider upstream's de-duplication left uncovered bare:
+    ## §12 watched it without a comma before 3.1.0 moved it here. The lookbehind
+    ## keeps one instance from being reported twice by the comma form above.
+    ("CHECK", "15", "shallow -ing rider", r"(?<!, )\bfostering\b"),
+    ("ACT", "16", "sales language", r"\b(nestled|in the heart of|breathtaking|must-visit|renowned|diverse array|groundbreaking|exemplifies|commitment to)\b"),
     ("ACT", "17", "borrowed authority", r"\b(experts (argue|believe|say)|observers have cited|industry reports|some critics|several publications|active social media presence)\b"),
     ("CHECK", "18", "avoiding is/are/has", r"\b(serves|stands|functions|operates) as\b|\brepresents a\b|\bfeatures (a|four|three|two|over)\b"),
+    ## "boasts" is sales language whatever rule lists it, so it stays at ACT.
+    ("ACT", "18", "avoiding is/are/has", r"\bboasts\b"),
 
     # D. Formatting by rule
     ("ACT", "19", "bold label list item", r"^\s*[-*+]\s+\*\*[^*]+:?\*\*:?"),
@@ -66,23 +72,26 @@ PATTERNS = [
     # E. Leftovers
     ("ACT", "22", "chatbot residue", r"\b(i hope this helps|of course!|certainly!|great question|you're absolutely right|would you like|want me to|should i continue|let me know if)\b"),
     ("ACT", "23", "knowledge-limit disclaimer", r"\b(as of my|up to my last training|while specific details are|based on available information|not publicly available|not widely documented|in the (provided|available) sources|maintains a low profile|it is believed that)\b"),
+    ("CHECK", "2", "names what the example showed", r"\b(this shows the importance of|the message was clear|it was a lesson in)\b"),
+    # §25 watches text that describes its own sourcing, assembly or layout
+    ("CHECK", "25", "text describing itself", r"\b(was added to replace|generated from|compiled from|the table below compares|this section is organi[sz]ed by)\b"),
 
-    # F. Local additions
-    ("CHECK", "26", "abstract subject + intentional verb", r"\b(this|that|it|the \w+) (creates|designs|builds|argues|demonstrates|addresses|tackles|constructs)\b"),
-    ("ACT", "27", "pseudo-cleft", r"\b(what|where|how|why) [^.;]{0,40}\b(is|are|was|were) (that|to|by|because|a|an|the)\b"),
-    ("ACT", "27", "the reason X is that", r"\bthe reason\b[^.;]{0,40}\bis (that|because)\b"),
-    ("ACT", "27", "is why / that is why", r"\bis why\b"),
-    ("CHECK", "28", "third-person self-reference", r"\bthe (author|applicant|lead investigator|principal investigator)\b"),
-    # section 31 is handled by connectives(), which classifies and counts every
+    # G. Local additions
+    ("CHECK", "27", "abstract subject + intentional verb", r"\b(this|that|it|the \w+) (creates|designs|builds|argues|demonstrates|addresses|tackles|constructs)\b"),
+    ("ACT", "28", "pseudo-cleft", r"\b(what|where|how|why) [^.;]{0,40}\b(is|are|was|were) (that|to|by|because|a|an|the)\b"),
+    ("ACT", "28", "the reason X is that", r"\bthe reason\b[^.;]{0,40}\bis (that|because)\b"),
+    ("ACT", "28", "is why / that is why", r"\bis why\b"),
+    ("CHECK", "29", "third-person self-reference", r"\bthe (author|applicant|lead investigator|principal investigator)\b"),
+    # section 32 is handled by connectives(), which classifies and counts every
     # "so" rather than matching one shape
-    ("CHECK", "32", "trailing coordination", r", and (the|what) [^.;:!?]+[.!?]?$"),
-    ("CHECK", "33", "and where adversative", r"\b(rises|raises|works|fits|improves|increases) [^.;]{0,40}, and (the|it) \w+ (does not|doesn't|fails)\b"),
-    ("CHECK", "30", "negation for effect", r"\b(never|nobody|nothing|no one|none)\b"),
-    ("ACT", "34", "X and not-X as a label", r"\b(can|could|will|would|does|do|did|is|are|has|have|should|must) and (cannot|can not|can't|could not|couldn't|will not|won't|would not|wouldn't|does not|doesn't|do not|don't|did not|didn't|is not|isn't|are not|aren't|has not|hasn't|have not|haven't|should not|shouldn't|must not|mustn't)\b"),
-    ("ACT", "34", "range with no point in it", r"\b(whether or not|for better or worse|to a greater or lesser extent)\b"),
+    ("CHECK", "33", "trailing coordination", r", and (the|what) [^.;:!?]+[.!?]?$"),
+    ("CHECK", "34", "and where adversative", r"\b(rises|raises|works|fits|improves|increases) [^.;]{0,40}, and (the|it) \w+ (does not|doesn't|fails)\b"),
+    ("CHECK", "31", "negation for effect", r"\b(never|nobody|nothing|no one|none)\b"),
+    ("ACT", "37", "X and not-X as a label", r"\b(can|could|will|would|does|do|did|is|are|has|have|should|must) and (cannot|can not|can't|could not|couldn't|will not|won't|would not|wouldn't|does not|doesn't|do not|don't|did not|didn't|is not|isn't|are not|aren't|has not|hasn't|have not|haven't|should not|shouldn't|must not|mustn't)\b"),
+    ("ACT", "37", "range with no point in it", r"\b(whether or not|for better or worse|to a greater or lesser extent)\b"),
 ]
 
-PARA_SECTIONS = ("1", "32", "33")
+PARA_SECTIONS = ("1", "33", "34")
 
 FENCE = re.compile(r"^\s*(```|~~~)")
 INLINE_CODE = re.compile(r"`[^`]*`")
@@ -90,7 +99,7 @@ LINK_TARGET = re.compile(r"\]\([^)]*\)")
 URL = re.compile(r"https?://\S+")
 HEADING = re.compile(r"^(#+)\s+(.*)$")
 
-# Uses of "so" that are not the therefore-sense of section 31.
+# Uses of "so" that are not the therefore-sense of section 32.
 SO_FIXED = re.compile(r"so-called|so\s+far\b|so\s+long\s+as\b|and\s+so\s+on\b", re.IGNORECASE)
 # "so large that", "so much as", "so many that": an intensifier, not a connective
 SO_INTENSIFIER = re.compile(r"so\s+(?:\w+\s+){0,2}?(?:that|as)\b", re.IGNORECASE)
@@ -143,7 +152,7 @@ def flatten(masked):
     """Join prose into unwrapped text, with a character-to-line-number map.
 
     Hard wrapping hides any pattern that spans a line break, which SKILL.md
-    warns about for section 32 and which also splits "so ... can" clauses.
+    warns about for section 33 and which also splits "so ... can" clauses.
     """
     chars, lineof = [], []
     for n, line in enumerate(masked, 1):
@@ -162,7 +171,7 @@ def flatten(masked):
 
 
 def connectives(path, masked):
-    """Section 31: classify and count every causal connective in the prose."""
+    """Section 32: classify and count every causal connective in the prose."""
     text, lineof = flatten(masked)
     words = len(WORD.findall(text))
     pages = max(words / WORDS_PER_PAGE, 1e-9)
@@ -191,15 +200,15 @@ def connectives(path, masked):
     ]
 
     for n, ctx in therefore:
-        print(f"{path}:{n}: [ACT §31] so = therefore: ...{ctx}...")
+        print(f"{path}:{n}: [ACT §32] so = therefore: ...{ctx}...")
     for n, ctx in purpose:
-        print(f"{path}:{n}: [CHECK §31] so + modal, purpose or therefore?: ...{ctx}...")
+        print(f"{path}:{n}: [CHECK §32] so + modal, purpose or therefore?: ...{ctx}...")
     for n, word, ctx in subs:
-        print(f"{path}:{n}: [CHECK §31] causal connective '{word}': ...{ctx}...")
+        print(f"{path}:{n}: [CHECK §32] causal connective '{word}': ...{ctx}...")
 
     allowance = max(1, round(pages))
     print(
-        f"{path}: §31 density: {len(therefore)} therefore-sense 'so' in "
+        f"{path}: §32 density: {len(therefore)} therefore-sense 'so' in "
         f"{words} words ({round(pages, 1)} pages, allowance ~{allowance}); "
         f"{len(purpose)} ambiguous, {len(subs)} substitute(s)"
     )

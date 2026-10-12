@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "humanizer",
-  "description": "Rewrite AI-sounding text so it reads naturally without changing what it says.",
-  "version": "3.0.0+sbfnk.2",
+  "description": "Rewrite AI-sounding text so it reads like the writer without changing what it says.",
+  "version": "3.1.0+sbfnk.1",
   "author": {
     "name": "blader",
     "url": "https://github.com/blader"
   },
-  "homepage": "https://github.com/blader/humanizer",
-  "repository": "https://github.com/blader/humanizer",
+  "homepage": "https://github.com/sbfnk/humanizer",
+  "repository": "https://github.com/sbfnk/humanizer",
   "license": "MIT",
   "keywords": ["writing", "editing", "humanize", "prose", "style"],
   "skills": ["./"]
