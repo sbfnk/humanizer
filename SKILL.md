@@ -8,11 +8,11 @@ description: |
   Local additions: banned words, conversation-derived "X, not Y", abstract agency,
   pseudo-clefts, third-person self-reference, name drift, negation where a
   description exists, "so" chains, trailing coordination, flattened contrasts,
-  wh-clauses where a noun belongs, checking voice against your own output, and
-  paired opposites used as a label.
+  wh-clauses where a noun belongs, checking voice against your own output,
+  paired opposites used as a label, and possessive 's on things.
 license: MIT
 metadata:
-  version: "3.1.0+sbfnk.1"
+  version: "3.1.0+sbfnk.2"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -688,6 +688,23 @@ which side the answer falls on, say that side.
 
 The same shape appears as "whether or not", "for better or worse" and "to a
 greater or lesser extent". Each names a range and picks no point in it.
+
+### 38. Possessive 's on things that are not people
+
+**Watch for:** an apostrophe genitive whose owner is not a person: "the vaccine's
+effectiveness", "the model's assumptions", "the study's design", "the report's
+second section", "the region's natural beauty".
+**Problem:** The 's genitive belongs to people. On a thing, a study or an
+abstraction it reads as personification and compresses a relation that the "of"
+form states. Rewrite with "of", or use the noun as a modifier where that reads
+naturally.
+**Test:** is the owner a person, or a group of people acting as people ("the
+team's decision", "the patient's history")? If not, rewrite.
+**Before:**
+> The vaccine's effectiveness depends on the ring's size and the trial's design.
+**After:**
+> The effectiveness of the vaccine depends on the size of the ring and on the trial
+> design.
 
 ## When not to act
 

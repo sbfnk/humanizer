@@ -49,6 +49,7 @@ FIXTURES = [
     ("The reason it fails is that N is wrong.", "ACT", "the reason X is that"),
     ("It is not only slow but wrong.", "ACT", "not just/only/merely X but Y"),
     ("The team is data-driven and cross-functional.", None, "§10 dropped these upstream"),
+    ("The vaccine's effectiveness was high.", "CHECK", "possessive 's on a thing"),
 ]
 
 TIER_RANK = {"CHECK": 0, "ACT": 1}

@@ -89,6 +89,8 @@ PATTERNS = [
     ("CHECK", "31", "negation for effect", r"\b(never|nobody|nothing|no one|none)\b"),
     ("ACT", "37", "X and not-X as a label", r"\b(can|could|will|would|does|do|did|is|are|has|have|should|must) and (cannot|can not|can't|could not|couldn't|will not|won't|would not|wouldn't|does not|doesn't|do not|don't|did not|didn't|is not|isn't|are not|aren't|has not|hasn't|have not|haven't|should not|shouldn't|must not|mustn't)\b"),
     ("ACT", "37", "range with no point in it", r"\b(whether or not|for better or worse|to a greater or lesser extent)\b"),
+    # "'s" after a lowercase word, skipping the contractions of "is" and "us"
+    ("CHECK", "38", "possessive 's on a thing", r"\b(?!(?:it|that|there|here|what|who|where|how|let|he|she|one|everyone|nobody|someone|this|which)'s\b)[a-z]+'s\b"),
 ]
 
 PARA_SECTIONS = ("1", "33", "34")

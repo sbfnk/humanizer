@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0+sbfnk.2
+
+- New local rule §38: no apostrophe genitive on things that are not people. "The
+  vaccine's effectiveness" becomes "the effectiveness of the vaccine". `tells.py` lists
+  candidates in its CHECK tier. 38 patterns total.
+
 ## 3.1.0+sbfnk.1
 
 - Merged upstream 3.1.0 and re-applied the local rules. Upstream kept the numbering of

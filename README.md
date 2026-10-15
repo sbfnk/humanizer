@@ -24,7 +24,7 @@ These are the most common signs of AI writing, and Humanizer rewrites any of the
 4. **A staged run-up:** "Here's the thing." "Honestly?"
 5. **Arguing with no one:** "I'm not saying X, but..."
 
-Humanizer checks for [37 patterns](#the-37-patterns) in all.
+Humanizer checks for [38 patterns](#the-38-patterns) in all.
 
 ## Installation
 
@@ -106,7 +106,7 @@ Humanizer marks every tell it finds, strongest first. It drafts a rewrite withou
 
 When you paste text, Humanizer shows its work: the first rewrite, a short critique of anything that still sounds artificial, and the final version. Point it at a file and it changes only the prose, leaving code, data, frontmatter, and link targets alone. Personal writing keeps the writer's opinions and quirks. Technical and reference prose stays neutral and plain.
 
-## The 37 patterns
+## The 38 patterns
 
 The patterns are numbered by strength and frequency. The first five justify an edit on a single sighting. Patterns marked *weak alone* count only when several tells share a passage, because a careful writer may use any one of them on purpose. Patterns 27 to 37 are local to this fork.
 
@@ -181,6 +181,7 @@ The patterns are numbered by strength and frequency. The first five justify an e
 | 35 | **Wh-clauses where a noun belongs** | "### Where the programme works" | "### Setting" |
 | 36 | **Checking voice against your own output** | "This phrase is all over the notes, so it is the writer's voice" | AI-tagged notes and prior drafts are not evidence; weight unaided text |
 | 37 | **A thing and its opposite offered as a label** | "what the cases could and could not support" | Say which side the answer falls on |
+| 38 | **Possessive 's on things that are not people** | "the vaccine's effectiveness" | "the effectiveness of the vaccine" |
 
 ## Full example
 
