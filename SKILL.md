@@ -9,10 +9,11 @@ description: |
   pseudo-clefts, third-person self-reference, name drift, negation where a
   description exists, clause chains with "so", ", and" or ", which", trailing coordination, flattened contrasts,
   wh-clauses where a noun belongs, checking voice against your own output,
-  paired opposites used as a label, and possessive 's on things.
+  paired opposites used as a label, possessive 's on things, and casual verbs
+  where the field has a term.
 license: MIT
 metadata:
-  version: "3.1.0+sbfnk.3"
+  version: "3.1.0+sbfnk.4"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -717,6 +718,39 @@ team's decision", "the patient's history")? If not, rewrite.
 **After:**
 > The effectiveness of the vaccine depends on the size of the ring and on the trial
 > design.
+
+### 39. A casual verb where the field has a term
+
+**Watch for:** a vivid everyday verb standing in for a term of art. In
+epidemiology: "a dose lands" for a post-exposure dose taking effect, "cases blow
+up" for exponential growth, "the signal dies off" for incidence declining, "the
+curve bends" for growth slowing. Also the startup register generally: ship, spin
+up, dial in, baked in, under the hood, for free, a win, cheap.
+**Problem:** The sentence reads as writing *about* the field rather than in it,
+and a reader who works in the field has to translate it back before they can
+check it. The domain has a precise word, and using it costs no clarity for
+anyone else. The tell is strongest in the opening sentence of a passage, where
+the casual verb is doing the work of orienting the reader.
+**Test:** would someone in the field write this in a paper, a report or a
+protocol? If not, name the event the way they would. Prefer the events the
+software or study actually models over a generic gesture at the same idea.
+**Before:**
+> A person's transmission rate can change part-way through their infectious
+> period: a dose lands, symptoms start, a case goes into isolation.
+**After:**
+> The rate at which a case infects its contacts can change during its infectious
+> period: a post-exposure dose takes effect, or symptoms begin and the case is
+> isolated.
+**Before:**
+> Spin up a model and the numbers come out cheap.
+**After:**
+> A 600-household simulation runs in 1.6 s.
+
+This is not licence for jargon. Use the term of the field for anything the field has
+a term for, and plain English for everything else; a sentence dense with terms
+of art that a plain word would carry is its own fault. Where the writer is
+addressed by their discipline, the register to match is a methods section, not a
+blog post.
 
 ## When not to act
 

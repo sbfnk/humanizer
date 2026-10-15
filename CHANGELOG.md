@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.0+sbfnk.4
+
+- New local rule §39: a casual verb where the field has a term ("a dose lands" for a
+  post-exposure dose taking effect, and the startup register generally). 39 patterns total.
+
 ## 3.1.0+sbfnk.3
 
 - §32 now covers ", and" and ", which" as well as "so". Swapping the connective keeps the
