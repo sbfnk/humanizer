@@ -123,6 +123,15 @@ SUBSTITUTES = re.compile(
     re.IGNORECASE,
 )
 
+# a second full clause hung on the first with ", and" or ", which"; the word
+# after "and" must be able to start a clause, which skips most list items
+JOIN_AND = re.compile(
+    r",\s+and\s+(?:then\s+)?(?:the|a|an|it|its|this|that|these|those|they|we|"
+    r"you|he|she|each|every|both|one|[A-Z][\w.]*)\s+\w+"
+)
+JOIN_WHICH = re.compile(r",\s+which\s+(?!is\s+why\b)\w+", re.IGNORECASE)
+SENTENCE_END = re.compile(r"(?<=[.!?;])[ \t]+|(?=\n)|(?<=\n)")
+
 WORD = re.compile(r"[A-Za-z][A-Za-z'-]*")
 WORDS_PER_PAGE = 500
 
@@ -172,6 +181,17 @@ def flatten(masked):
     return "".join(chars), lineof
 
 
+def is_list_tail(sentence, i):
+    """True when the ", and" at i closes a list ("a, b, and the c").
+
+    A list has an earlier comma whose item, up to this one, is a few words.
+    """
+    before = sentence[:i]
+    if "," not in before:
+        return False
+    return len(WORD.findall(before[before.rfind(",") + 1:])) <= 4
+
+
 def connectives(path, masked):
     """Section 32: classify and count every causal connective in the prose."""
     text, lineof = flatten(masked)
@@ -201,8 +221,44 @@ def connectives(path, masked):
         for m in re.finditer(SUBSTITUTES, text)
     ]
 
+    # clause joins, sentence by sentence; a run of joined sentences is the tell
+    joined, run, runs = [], [], []
+    pos = 0
+    therefore_at = {c for _, c in therefore}
+    for sentence in SENTENCE_END.split(text):
+        start = text.find(sentence, pos)
+        pos = start + len(sentence)
+        if not sentence.strip():
+            # a paragraph break ends any run of chained sentences
+            if len(run) >= 2:
+                runs.append(run)
+            run = []
+            continue
+        found = [
+            m for pat in (JOIN_AND, JOIN_WHICH) for m in pat.finditer(sentence)
+            if not is_list_tail(sentence, m.start())
+        ]
+        so_here = any(c and c in sentence for c in therefore_at)
+        for m in found:
+            joined.append((where(start + m.start()), context(start + m.start(), 40, 40)))
+        if found or so_here:
+            run.append(where(start))
+        else:
+            if len(run) >= 2:
+                runs.append(run)
+            run = []
+    if len(run) >= 2:
+        runs.append(run)
+
     for n, ctx in therefore:
         print(f"{path}:{n}: [ACT §32] so = therefore: ...{ctx}...")
+    for r in runs:
+        print(
+            f"{path}:{r[0]}: [ACT §32] {len(r)} chained sentences in a row "
+            f"(lines {r[0]}-{r[-1]}): end the first clause instead of joining"
+        )
+    for n, ctx in joined:
+        print(f"{path}:{n}: [CHECK §32] clause joined with ', and'/', which': ...{ctx}...")
     for n, ctx in purpose:
         print(f"{path}:{n}: [CHECK §32] so + modal, purpose or therefore?: ...{ctx}...")
     for n, word, ctx in subs:
@@ -212,9 +268,10 @@ def connectives(path, masked):
     print(
         f"{path}: §32 density: {len(therefore)} therefore-sense 'so' in "
         f"{words} words ({round(pages, 1)} pages, allowance ~{allowance}); "
-        f"{len(purpose)} ambiguous, {len(subs)} substitute(s)"
+        f"{len(purpose)} ambiguous, {len(subs)} substitute(s), "
+        f"{len(joined)} ', and'/', which' join(s)"
     )
-    return max(0, len(therefore) - allowance)
+    return max(0, len(therefore) - allowance) + len(runs)
 
 
 def paragraphs(masked):

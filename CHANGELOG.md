@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.1.0+sbfnk.3
+
+- §32 now covers ", and" and ", which" as well as "so". Swapping the connective keeps the
+  chain, and the old examples taught that swap; they now end the first sentence instead.
+  `tells.py` lists these joins and reports two or more joined sentences in a row as an ACT
+  hit.
+
 ## 3.1.0+sbfnk.2
 
 - New local rule §38: no apostrophe genitive on things that are not people. "The

@@ -175,7 +175,7 @@ The patterns are numbered by strength and frequency. The first five justify an e
 | 29 | **Writing about yourself in the third person** | "The lead investigator will devote 30% of their time" | "I will devote 30% of my time" |
 | 30 | **One thing under several names** | "retry budget", "retry allowance", "backoff limit" | Pick one name and grep for the alternatives across every file |
 | 31 | **Negation where a description exists** | "a constraint nothing can satisfy" | "unsatisfiable", or state the mechanism |
-| 32 | **"so" as a connective on every other sentence** | "It defaults to `auto`, so it switches on, so the legs cannot resolve" | Delete most of them and let sentence order show the cause |
+| 32 | **Chaining clauses with "so", ", and" or ", which"** | "Handles are numbered per session, and one from a dead session names another object. Every handle has a token, and both sides compare it." | End the first sentence; name the relation with "because" when it matters |
 | 33 | **Trailing "and the X it Ys" that says nothing about X** | "...using AI to write code, and the review that requires" | Give the tail a main verb or cut it |
 | 34 | **"and" where the relation is adversative** | "Caching raises throughput, and the gain does not last" | Use "but" and say what the contrast is |
 | 35 | **Wh-clauses where a noun belongs** | "### Where the programme works" | "### Setting" |
