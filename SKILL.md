@@ -752,6 +752,26 @@ of art that a plain word would carry is its own fault. Where the writer is
 addressed by their discipline, the register to match is a methods section, not a
 blog post.
 
+### 40. "Whose" with a thing as antecedent
+
+**Watch for:** a relative clause with "whose" hanging off a noun that is not a person: "any
+intervention whose benefit depends on", "a model whose assumptions", "a study whose design",
+"a country whose borders".
+**Problem:** "Whose" is the possessive of "who", and on a thing it reads as the same
+personification as §38, compressed into a relative clause. It is also a model's favourite way
+to bolt a second claim onto a noun. Restructure: give the clause its own subject, or use
+"with", "of which" or a plain adjective.
+**Test:** the same as §38. Is the antecedent a person, or a group acting as people? If not,
+rewrite.
+**Before:**
+> This applies to any intervention whose benefit depends on transmission.
+**After:**
+> This applies to any intervention if its benefit depends on transmission.
+**Before:**
+> a model whose assumptions are stated
+**After:**
+> a model with stated assumptions
+
 ## When not to act
 
 Each pattern describes a default choice, and a person can make any one of them on purpose. Leave a watched phrase alone inside a quotation, a title, a proper name, or a passage that discusses the phrase rather than uses it. Salutations and sign-offs on a letter or comment predate chatbots. Text written before November 30, 2022 is not AI-written. People who judge by feel do little better than chance, and human writing keeps absorbing AI habits, so several tells together are the safeguard.

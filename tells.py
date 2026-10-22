@@ -91,6 +91,7 @@ PATTERNS = [
     ("ACT", "37", "range with no point in it", r"\b(whether or not|for better or worse|to a greater or lesser extent)\b"),
     # "'s" after a lowercase word, skipping the contractions of "is" and "us"
     ("CHECK", "38", "possessive 's on a thing", r"\b(?!(?:it|that|there|here|what|who|where|how|let|he|she|one|everyone|nobody|someone|this|which)'s\b)[a-z]+'s\b"),
+    ("CHECK", "40", "whose on a thing", r"\bwhose\b"),
 ]
 
 PARA_SECTIONS = ("1", "33", "34")
