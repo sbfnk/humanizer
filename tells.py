@@ -92,6 +92,7 @@ PATTERNS = [
     # "'s" after a lowercase word, skipping the contractions of "is" and "us"
     ("CHECK", "38", "possessive 's on a thing", r"\b(?!(?:it|that|there|here|what|who|where|how|let|he|she|one|everyone|nobody|someone|this|which)'s\b)[a-z]+'s\b"),
     ("CHECK", "40", "whose on a thing", r"\bwhose\b"),
+    ("CHECK", "35", "chained wh-clauses as object", r"\b(show|shows|showed|assess|assesses|establish|establishes|determine|determines|examine|examines)\b[^.;]{0,40}\b(how far|how much|which|whether|when)\b[^.;]{0,80}\b(and|or) (how far|how much|which|whether|when)\b"),
 ]
 
 PARA_SECTIONS = ("1", "33", "34")

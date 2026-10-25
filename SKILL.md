@@ -661,6 +661,17 @@ The test: does a noun phrase name the same thing? Then use the noun. Keep the wh
 for a question the reader has actually just asked, which is rare, and for a quoted
 question.
 
+**The same shape hides in object position**, after verbs of finding out: "simulations
+show how far a comparison is biased and which data would correct it", "we will assess
+how much the estimate changes". Each wh-clause names a quantity the field already has a
+noun for. Use the noun and a verb that fits it: "simulations quantify the bias and
+identify the data that would remove it". One such clause is ordinary; a sentence that
+chains two or three is the tell.
+**Before:**
+> Simulations show how far a comparison is biased without these data and which additional data would correct it.
+**After:**
+> Simulations quantify the bias when these data are missing and identify the data that would remove it.
+
 ### 36. Checking voice against your own output
 
 **Problem:** Deciding whether a phrase belongs to the writer means finding it in text
