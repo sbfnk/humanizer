@@ -24,7 +24,7 @@ These are the most common signs of AI writing, and Humanizer rewrites any of the
 4. **A staged run-up:** "Here's the thing." "Honestly?"
 5. **Arguing with no one:** "I'm not saying X, but..."
 
-Humanizer checks for [39 patterns](#the-39-patterns) in all.
+Humanizer checks for [40 patterns](#the-40-patterns) in all.
 
 ## Installation
 
@@ -106,7 +106,7 @@ Humanizer marks every tell it finds, strongest first. It drafts a rewrite withou
 
 When you paste text, Humanizer shows its work: the first rewrite, a short critique of anything that still sounds artificial, and the final version. Point it at a file and it changes only the prose, leaving code, data, frontmatter, and link targets alone. Personal writing keeps the writer's opinions and quirks. Technical and reference prose stays neutral and plain.
 
-## The 39 patterns
+## The 40 patterns
 
 The patterns are numbered by strength and frequency. The first five justify an edit on a single sighting. Patterns marked *weak alone* count only when several tells share a passage, because a careful writer may use any one of them on purpose. Patterns 27 to 37 are local to this fork.
 
@@ -183,6 +183,7 @@ The patterns are numbered by strength and frequency. The first five justify an e
 | 37 | **A thing and its opposite offered as a label** | "what the cases could and could not support" | Say which side the answer falls on |
 | 38 | **Possessive 's on things that are not people** | "the vaccine's effectiveness" | "the effectiveness of the vaccine" |
 | 39 | **A casual verb where the field has a term** | "a dose lands, symptoms start" | "a post-exposure dose takes effect, or symptoms begin" |
+| 40 | **"Whose" with a thing as antecedent** | "any intervention whose benefit depends on transmission" | "any intervention if its benefit depends on transmission" |
 
 ## Full example
 
