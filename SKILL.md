@@ -657,16 +657,17 @@ This is the bare-nominal relative of §28, and needs no copula to appear.
 **After:**
 > An outbreak response is limited by whatever was being measured before it began.
 
-The test: does a noun phrase name the same thing? Then use the noun. Keep the wh-form
-for a question the reader has actually just asked, which is rare, and for a quoted
-question.
+The rule is general: prefer a noun to a subordinate clause wherever a noun names the
+thing, in heading, subject or object. "The conclusions of a study" over "what a
+study concludes". Keep the wh-form for a question the reader has just asked, which is
+rare, or a quoted one.
 
 **The same shape hides in object position**, after verbs of finding out: "simulations
 show how far a comparison is biased and which data would correct it", "we will assess
 how much the estimate changes". Each wh-clause names a quantity the field already has a
 noun for. Use the noun and a verb that fits it: "simulations quantify the bias and
-identify the data that would remove it". One such clause is ordinary; a sentence that
-chains two or three is the tell.
+identify the data that would remove it". After a verb of finding out one such clause
+is ordinary and a chain of two or three is the tell; after any other verb, one is.
 **Before:**
 > Simulations show how far a comparison is biased without these data and which additional data would correct it.
 **After:**
