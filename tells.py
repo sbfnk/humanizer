@@ -92,6 +92,8 @@ PATTERNS = [
     # "'s" after a lowercase word, skipping the contractions of "is" and "us"
     ("CHECK", "38", "possessive 's on a thing", r"\b(?!(?:it|that|there|here|what|who|where|how|let|he|she|one|everyone|nobody|someone|this|which)'s\b)[a-z]+'s\b"),
     ("CHECK", "40", "whose on a thing", r"\bwhose\b"),
+    # causal "since" after the start of a sentence; temporal uses before a date or "then" pass
+    ("ACT", "41", "causal since mid-sentence", r"(?<!ever\s)(?<=[A-Za-z0-9,;:)]\s)since\b(?!\s+(?:\d|then\b|last\b|early\b|late\b|the (?:start|beginning|end|outbreak|pandemic)\b|(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\b))"),
     ("CHECK", "35", "wh-clause where a nominalisation exists", r"\b(change|changes|changed|affect|affects|affected|alter|alters|altered|shape|shapes|shaped|inform|informs|informed)\b (what|how) (a|an|the|its|their|this|that|each) \w+ (concludes|finds|shows|does|means|achieves|estimates|measures|produces|delivers|decides)\b"),
     ("CHECK", "35", "chained wh-clauses as object", r"\b(show|shows|showed|assess|assesses|establish|establishes|determine|determines|examine|examines)\b[^.;]{0,40}\b(how far|how much|which|whether|when)\b[^.;]{0,80}\b(and|or) (how far|how much|which|whether|when)\b"),
 ]

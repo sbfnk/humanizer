@@ -784,6 +784,22 @@ rewrite.
 **After:**
 > a model with stated assumptions
 
+### 41. Causal "since" in the middle of a sentence
+
+**Watch for:** "since" meaning "because" after the start of a sentence: "X is excluded, since
+checking it needs a model", "we drop it since it is vague".
+**Problem:** Mid-sentence, causal "since" tacks the reason on as an afterthought, and it is
+easily misread as temporal ("since checking it" as "from the time of checking it"). Causal
+"since" belongs only at the start of a sentence, where the reason comes first. Elsewhere,
+use "because", or make the reason its own sentence. Temporal "since" ("since March 2020",
+"ever since") is fine anywhere.
+**Before:**
+> Claims that put a value on R are excluded, since checking a value needs another model.
+**After:**
+> Claims that put a value on R are excluded because checking a value needs another model.
+**Or:**
+> Since checking a value of R needs another model, claims that put a value on it are excluded.
+
 ## When not to act
 
 Each pattern describes a default choice, and a person can make any one of them on purpose. Leave a watched phrase alone inside a quotation, a title, a proper name, or a passage that discusses the phrase rather than uses it. Salutations and sign-offs on a letter or comment predate chatbots. Text written before November 30, 2022 is not AI-written. People who judge by feel do little better than chance, and human writing keeps absorbing AI habits, so several tells together are the safeguard.
