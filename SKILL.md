@@ -693,7 +693,7 @@ turn in the middle of a list.
 > A dose budget limits the number of people an intervention can reach. In the mixing approximations the groups are the values of the key the model mixes by.
 
 **After:**
-> A budget limits the doses given per period. In the mixing approximations the groups are the mixing groups.
+> A dose budget limits the reach of an intervention. In the mixing approximations the groups are the values of the mixing key.
 
 ### 36. Checking voice against your own output
 
