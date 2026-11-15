@@ -16,8 +16,8 @@ def at_ref(ref, path):
 
 # Upstream bodies this fork deliberately extends. A third difference is a slip.
 FORK_EDITS = {
-    1: ("the fork adds the conversation-derived 'X, not Y' material", "5b978e6cbcfbf9c4"),
-    13: ("the fork extends the watch list with 'and that is the lesson'", "c6da550650a2558e"),
+    1: ("the fork adds the conversation-derived 'X, not Y' material", "2f6d095e54ff85e3"),
+    13: ("the fork extends the watch list with 'and that is the lesson'", "9ce3c4c66258fb08"),
 }
 
 

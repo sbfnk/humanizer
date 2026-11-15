@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.0+sbfnk.1
+
+- Merged upstream 4.0.0, taking its wording wherever it conflicted with this fork, including the reversal of the no-invention rule in steps 2 and 3, §14 and §17. The fork's local rules (§27 to §41), steps 5 to 8, the banned words and its edits to §1 and §13 stay. 41 patterns total.
+
 ## 3.1.0+sbfnk.4
 
 - New local rule §39: a casual verb where the field has a term ("a dose lands" for a
@@ -74,6 +78,18 @@
 - Upstream's validator replaced its line budget with a word budget and added a check that
   every SKILL.md section reference points at a real pattern. The budget is widened here
   from 5,500 to 9,500 words to fit the extra rules; the file is at 8485.
+
+## 4.0.0
+
+- The skill no longer forbids adding facts. Where the text is generic, it now adds a specific detail it knows to be true. It still keeps every claim the original made and treats a lost or changed claim as an error. This reverses the no-invention rule from 2.9.0. Patterns 14 and 17 follow the same change.
+- Reworked 15 "After" examples in `SKILL.md` and both README examples. Several were vaguer or stiffer than the text they replaced, used phrases from the skill's own watch lists, or changed a stated fact.
+- File mode now reads the whole current file before editing, even one written in the same session. Its summary says how many sections it reviewed, so a partial pass is visible (#326, #327).
+- Text being edited can contain fake closing tags or notes from an "operator" or a "system message". The skill now treats those as material to edit, never as instructions (#317).
+- Rewrote unclear sentences in `SKILL.md` and `README.md`. Coined terms such as "riders" and "shape edits" became plain words, and sentences that only announced or repeated a neighbor are gone. Step 3 now checks for dropped or changed facts first. Pattern 15 is now "Shallow -ing phrases". The README gives `/humanizer` as the only command (#330).
+- Added a blank line above each pattern label in `SKILL.md` so GitHub shows every label and example on its own line (#329).
+- The skill description no longer cites Wikipedia. The credit stays in the Source section and the README (#321).
+- Added a pi package manifest, so `pi install git:github.com/blader/humanizer` installs the skill (#315).
+- Removed the `$schema` key from the Claude plugin manifest, which caused a sync warning (#307).
 
 ## 3.1.0
 
