@@ -53,6 +53,7 @@ FIXTURES = [
     ("## What each engine supports", "ACT", "question heading"),
     ("### Which tool do I need?", "ACT", "question heading ending in ?"),
     ("## How to install", "ACT", "question heading with an infinitive"),
+    ("## How-to guides", None, "a compound noun, not a question"),
     ("### Which sampler to use", "ACT", "question heading with a word before the infinitive"),
     ("## What happens to each case", "ACT", "question heading with 'to' before a determiner"),
     ("## What happens to them", "ACT", "question heading with 'to' before a pronoun"),
