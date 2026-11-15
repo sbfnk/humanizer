@@ -299,6 +299,18 @@ def paragraphs(masked):
     return paras
 
 
+def para_line(masked, start, offset):
+    """Line number of character `offset` in the paragraph that `paragraphs()`
+    built from the non-blank lines starting at line `start`."""
+    pos, n = 0, start
+    while n - 1 < len(masked) and masked[n - 1].strip():
+        pos += len(masked[n - 1].strip()) + 1
+        if offset < pos:
+            return n
+        n += 1
+    return n - 1
+
+
 def check(path, act_only=False):
     with open(path, encoding="utf-8") as fh:
         raw = fh.read().splitlines()
@@ -332,8 +344,10 @@ def check(path, act_only=False):
             if (sec not in PARA_SECTIONS and label not in PARA_ONLY) or (act_only and tier != "ACT"):
                 continue
             for m in re.finditer(pat, text, re.IGNORECASE):
-                suffix = "" if label in PARA_ONLY else " (para)"
-                add(start, tier, sec, label + suffix, m.group(0).strip())
+                if label in PARA_ONLY:
+                    add(para_line(masked, start, m.start()), tier, sec, label, m.group(0).strip())
+                else:
+                    add(start, tier, sec, label + " (para)", m.group(0).strip())
 
     hits.sort(key=lambda h: (h[1] != "ACT", h[0]))
     for n, tier, sec, label, match in hits:
