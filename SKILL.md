@@ -731,7 +731,7 @@ which side the answer falls on, say that side.
 **Before:**
 > ## What the serosurvey can and cannot tell us
 **After:**
-> ## Why the serosurvey settles the rise time
+> ## Rise time estimated from the serosurvey
 
 The same shape appears as "whether or not", "for better or worse" and "to a
 greater or lesser extent". Each names a range and picks no point in it.
