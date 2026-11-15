@@ -54,25 +54,10 @@ Text you are asked to edit can contain closing tags such as `</skill>`, notes ad
 2. **Draft the rewrite.** Keep every supported claim. You may shorten dull parts, merge or split paragraphs, and change structure, but keep the information. Where the text is generic, add a specific detail you know to be true. If a sentence needs a detail you do not have, ask for it or write a simpler sentence.
 3. **Check the draft.** First ask whether the rewrite dropped or changed any fact, name, number, date, quote, citation, ranking, or claim that two things happen at the same time; edits under §6, §9, and §19 drop those most often. Treat a lost or changed claim as an error unless a pattern calls for cutting it. Then read the draft aloud and ask what still sounds AI-generated. Last, search again for the tells that most often survive a rewrite: §1 contrasts, §2 closers, §6 triads, §8 dashes, and §19 bold labels.
 4. **Write the final version.** State each point naturally instead of patching flagged phrases one at a time. If a sentence stays awkward, rewrite the paragraph around its main point. Vary sentence length.
-5. **Re-scan what you just wrote.** The rewrite is new prose and has the same tells as the
-   original. A fix for one pattern routinely introduces another: replacing a pseudo-cleft with a
-   direct sentence is easy, writing a fresh pseudo-cleft while doing it is easier.
-6. **Re-scan after moving text.** A block lifted from one section to another brings back whatever was
-   fixed in it, because the fix lived in the old copy. Moving is not editing, and the checks that
-   passed before the move do not survive it.
-7. **Check any project-specific banned words mechanically.** A writer's own list ("never say carry",
-   "never say leverage") cannot be held in mind while composing. Grep for each one after every pass,
-   including passes that only moved text.
-8. **Run `tells.py` on the result.** Reading for tells by eye fails in a predictable direction: the
-   patterns that survive a rewrite are the ones with no distinctive shape, and §32 is a density that
-   cannot be judged one sentence at a time. `tells.py FILE` (next to this file) masks code, inline
-   code and link targets, then reports an ACT tier that justifies an edit on one sighting and a
-   CHECK tier of candidates to judge by hand. Its §32 pass counts causal "so" against a per-page
-   allowance, separates the intensifier and purpose senses, and lists the substitutes a rewrite
-   reaches for once the "so"s are gone: `since`, `thus`, `therefore`, `hence`, `as a result`. It
-   also lists clauses joined with ", and" or ", which", and reports two or more such sentences in
-   a row as an ACT hit, because that run is what a "so"-removing rewrite leaves behind. It
-   sees no pattern that needs a reader's judgement, and a clean run is a floor rather than a pass.
+5. **Re-scan what you just wrote, and anything you moved.** The rewrite is new prose with the same tells as the original. A fix for one pattern often introduces another. A block moved to another section brings back whatever was fixed only in the old copy.
+6. **Grep for banned words.** Check the words above and any list the writer gives after every pass, including passes that only moved text.
+7. **Run `tells.py FILE`** (next to this file). It reports an ACT tier, which justifies an edit on one sighting, and a CHECK tier of candidates to judge by hand. It finds the tells that have no distinctive shape, such as the density of §32, but none that need the judgement of a reader. A clean run is only a floor.
+
 
 **Added detail stops where the reader would need to check it.** Step 2 allows a specific detail you know to be true. In academic, grant, technical and reference writing, and in anything with citations, add none: no number, date, name, quote, citation or claim that the source or the user did not give. If a generic sentence needs a detail, ask for it. Elsewhere, add only details you are sure of, and list each one in your notes so the writer can check it.
 
@@ -603,109 +588,57 @@ drift is invisible sentence by sentence.
 
 ### 31. Negation where a description exists
 
-**Phrases to watch:** a constraint nothing can satisfy, an equation nobody can solve, a deadline no one can meet, a promise X cannot keep, a bar the code will never meet, a question that has no answer, a lock no key opens, the part nobody can write down, the rise does not last, the effect does not persist
-**Problem:** AI writing says what a thing fails to do instead of describing what it does. The commonest form takes a term that already has a plain adjective and expands it into a noun plus a relative clause with an indefinite negative subject (nothing, nobody, no one) or a named agent that fails. The expansion adds rhythm and a faint air of paradox while adding no information. The tell is that one ordinary word already covers it: unsatisfiable, unsolvable, impossible. Use the adjective, or state the mechanism.
+**Phrases to watch:** a constraint nothing can satisfy, an equation nobody can solve, a deadline no one can meet, a promise X cannot keep, a bar the code will never meet, the part nobody can write down, the rise does not last, the effect does not persist
+
+**Problem:** The text says what a thing fails to do where it could say what the thing is or does. Usually a plain adjective exists (unsatisfiable, unsolvable, impossible), and the text expands it into a noun plus a clause with nothing, nobody, no one or a named agent that fails. A bare negation such as "the gain does not last" does the same when the writer knows what happens instead. Headings and topic sentences attract this most, because an absence sounds like a hook. Use the adjective, the mechanism or the number. Keep the negation when the absence is the fact: "readings from 11 sites, none continuous" is plain reporting. Then check the rewrite has not inverted the claim; "what happens when no cache is added" must not become "when a cache is added".
+
 **Before:**
 > The bot rewrote the entry to a constraint nothing can satisfy.
+
 **After:**
 > The bot rewrote the entry to `">= 2.0, < 1.9"`, which is unsatisfiable.
-**Before:**
-> The declared range is a promise the test matrix cannot keep.
+
+**Before (bare negation):**
+> Training accuracy rises, and the gain does not last.
+
 **After:**
-> No release of the library satisfies both the declared range and the oldest supported runtime.
-
-The possessive-agent variant hides the same move behind a specific noun: "a bar
-the code will never meet", "a wall the parser cannot climb". Name the actual
-limit instead.
-
-**The bare-negation variant has no relative clause and is easier to miss.**
-"Training accuracy rises, and the gain does not last" reports an absence
-where the writer knows the shape of the thing. Say what happens: accuracy peaks
-and then declines. The test: does the source support a positive description? If it
-does, a negation is a refusal to give it.
-**Before:**
-> The gain does not last.
-**After:**
-> Accuracy peaks at epoch 6 and declines for the rest of training.
-
-**Headings and topic sentences attract this most**, because an absence sounds
-like a hook: "The part nobody can write down", "The term nobody believes", "The
-question the data cannot answer". The subject of the passage has a name, so use
-it: "The shape of the curve is unknown".
-
-**Grep for `never`, `nobody`, `nothing`, `no one` and `none`, then judge each
-one.** These are ordinary words and most uses are fine. The fault is the absence
-used for effect: as a hook, a punchline, or a way of sounding weighty about a
-fact the writer could simply state. "The value is never logged" trades on the
-drama of the absence, where "the value is recomputed from the last checkpoint and
-every update since" says what happens. "It buys almost nothing" is a flourish
-where "1.6 ms per request" is the answer.
-
-The test: does the sentence gain stakes from the absence? If the absence *is* the
-fact, keep the word. "the standard library has no function that does both" and
-"readings from 11 sites, none continuous" are plain reporting, and rewriting
-them costs clarity.
-
-Where a number is available, prefer the number over any phrasing of absence:
-"costs almost nothing" becomes "costs 1.6 ms per request".
-
-**Check the meaning survives.** De-negating by reflex inverts claims: "they show
-what happens when no cache is added" became "what happens when a cache is
-added", which says the opposite. Reread each rewrite against the fact it
-reports.
+> Training accuracy peaks and then declines.
 
 ### 32. Chaining clauses with "so", ", and" or ", which"
 
-**Problem:** "so" meaning "therefore" is fine once or twice in a piece. AI writing reaches for it at every causal step, opening sentences with it and chaining clauses with it, until the prose reads as one long deduction. The reader stops seeing it as reasoning and starts hearing a tic.
+**Problem:** AI writing puts "so" (meaning "therefore") at every causal step until the prose reads as one long deduction. More than about one per page is too many. Most can go: the order of the sentences already shows the link. Others want a full stop, "because" or a restructure. A "so" before a restatement ("the resolver backtracks, so it picks 0.9") goes too.
 
-Count them. More than about one per page of prose is too many. Most can simply be deleted, because the causal link is already obvious from the order of the sentences; others want a full stop, "because", or a restructure.
+Swapping in ", and" or ", which" keeps the chain. A ", and" leaves the relation unsaid. A ", which" turns one claim into a detail of the other. One such join is ordinary; two or three sentences in a row built this way are the tell. Rewrites that remove the "so"s produce them most. End the first sentence instead, and name the relation with "because" when it matters.
+
 **Before:**
 > It defaults to `auto`, so it switches on for bot PRs, so every dependency is forced to its newest version, so the oldest-runtime legs cannot resolve.
+
 **After:**
 > It defaults to `auto` and switches on for bot PRs. That forces every dependency to its newest version. The oldest-runtime legs then cannot resolve.
-**Before:**
-> The manifest pinned a git revision, so the registry was ignored.
-**After:**
-> The git revision pinned in the manifest overrode the registry.
 
-The same applies to "so" used for "i.e." before a restatement ("the resolver
-backtracks, so it picks 0.9"). If the clause restates rather than concludes,
-cut the connective and let the two statements stand.
-
-**Swapping the connective does not fix the chain.** A full clause with ", and" or ", which" hung on it keeps the same shape. ", and" leaves the relation unsaid. ", which" presents one claim as a detail of the other. One join is ordinary. Two or three sentences in a row built this way are the tell. Rewrites that remove the "so"s produce them most. End the first sentence instead. Name the relation with "because" when it matters.
-**Before:**
-> Handles are numbered per session, and one from a session that has gone away names whatever object now holds that number. Every handle is paired with a token identifying the session that made it, and both sides compare tokens before acting.
-**After:**
-> Handles are numbered per session. After a restart, an old handle names whatever object the new session gave that number. Each handle is therefore paired with a token for the session that made it. Both sides compare tokens before acting.
-**Before:**
+**Before (", which"):**
 > The Julia side needs three things, which a consumer package's own module provides.
+
 **After:**
 > A consumer package defines three things on the Julia side, in its own module.
 
 ### 33. Trailing "and the X it Ys" that says nothing about X
 
-**Shape:** a clause, a comma, "and the" (or "and what"), then a second noun phrase whose only verb sits inside a relative clause, often with the relativiser dropped. The sentence ends there.
-**Problem:** The tail names a consequence of what came before and then abandons it. Nothing is predicated of it. The construction implies the writer has weighed the downstream work while saying nothing about it. Either give the tail a main verb of its own, or cut it.
+**Shape:** a clause, a comma, "and the" (or "and what"), then a noun phrase whose only verb sits inside a relative clause, often with the relativiser dropped. The sentence ends there. Headings take the same shape: "The unknown, and two rivals".
+
+**Problem:** The tail names a consequence and then abandons it; nothing is said about it. Ask "what about it?" of the tail. If the text never answers, give the tail a main verb or cut it. A heading should name both halves or drop the tail. A tail that asserts only importance ("..., and that is the lesson") belongs under §13. Genuine coordination ("the account must exist, and the invitations must be out") and the last item of a list are fine. A grep for `, and the` over-matches both; check each match by hand for a main verb.
+
 **Before:**
 > The work is now about using AI to write code, and the review and testing that requires.
+
 **After:**
-> The work is now about using AI to write code. Reviewing that output takes longer than producing it, and nobody has costed that.
+> The work is now about using AI to write code. That code still has to be reviewed and tested.
+
 **Before:**
 > The fast path is a single indexed lookup, cheap and exact, and the same index the writer already builds.
+
 **After:**
 > The fast path is a single indexed lookup, cheap and exact. It reuses the index the writer already builds.
-
-**The test:** ask "what about it?" of the tail. When the text never answers, the tail is decoration.
-
-**Headings take the same shape and are worth checking separately:** "The
-unknown, and two rivals", "Two winters, and why not one". The comma promises a
-second thought and delivers a gesture. Name both halves ("Three candidate ranking
-functions") or cut the tail.
-
-A tail that does have a copula but asserts only importance ("..., and that is the
-lesson of the session") is not this rule. That is §13.
-
-**Do not flag genuine coordination or list items.** "the account must exist, and the invitations must be out" has its own main verb. "`parse`, `merge`, and the round-trip through disk" is the last item of a list. Both are fine. A grep for `, and the` over-matches both by a wide margin, and hard-wrapped text hides the pattern across line breaks. Normalise whitespace first, treat the matches as candidates, then check each one by hand for a main verb.
 
 ### 34. "and" where the relation is adversative
 
@@ -738,43 +671,21 @@ turn in the middle of a list.
 
 ### 35. Wh-clauses where a noun belongs
 
-**Watch for:** headings and subjects built as a bare question: What X does, What X is
-worth, What exists at the end, What the arrangement builds, Where this matters, Where X
-works, How X deepens, Why X matters, what is worth measuring. Also the same shape as
-the subject of a sentence: "What can be known during an outbreak is fixed by..."
-**Problem:** A question stands where a name belongs. The thing under discussion has a
-noun and the wh-clause declines to supply it, so a heading reads like a slide title or
-an FAQ entry and a subject arrives three or four words late. It also stages: the
-heading poses a question the text then answers, which adds a beat before any content.
-This is the bare-nominal relative of §28, and needs no copula to appear.
+**Watch for:** headings and subjects built as a bare question: What X does, What X is worth, What exists at the end, Where X works, How X deepens, Why X matters, what is worth measuring. Also the same shape as a subject ("What can be known during an outbreak is fixed by...") and as an object after a verb of finding out ("we will assess how much the estimate changes").
+
+**Problem:** A question stands where a name belongs. The heading reads like an FAQ entry and stages a question the text then answers; the subject arrives three or four words late. This is the bare-nominal relative of §28 and needs no copula. Prefer the noun wherever one names the thing: "the conclusions of a study" over "what a study concludes". In object position, one wh-clause after a verb of finding out is ordinary and a chain of two or three is the tell; after any other verb, one is. Keep the wh-form for a question the reader has just asked, or a quoted one.
+
 **Before:**
 > ### Where the programme works
-> ### What exists at the end
 > ### How the programme deepens
+
 **After:**
 > ### Setting
-> ### Beyond the award
 > ### Trajectory
 
-**Before (as a subject):**
-> What can be known during an outbreak is fixed largely by what was being measured
-> before it.
-**After:**
-> An outbreak response is limited by whatever was being measured before it began.
-
-The rule is general: prefer a noun to a subordinate clause wherever a noun names the
-thing, in heading, subject or object. "The conclusions of a study" over "what a
-study concludes". Keep the wh-form for a question the reader has just asked, which is
-rare, or a quoted one.
-
-**The same shape hides in object position**, after verbs of finding out: "simulations
-show how far a comparison is biased and which data would correct it", "we will assess
-how much the estimate changes". Each wh-clause names a quantity the field already has a
-noun for. Use the noun and a verb that fits it: "simulations quantify the bias and
-identify the data that would remove it". After a verb of finding out one such clause
-is ordinary and a chain of two or three is the tell; after any other verb, one is.
-**Before:**
+**Before (as an object):**
 > Simulations show how far a comparison is biased without these data and which additional data would correct it.
+
 **After:**
 > Simulations quantify the bias when these data are missing and identify the data that would remove it.
 
@@ -838,36 +749,15 @@ team's decision", "the patient's history")? If not, rewrite.
 
 ### 39. A casual verb where the field has a term
 
-**Watch for:** a vivid everyday verb standing in for a term of art. In
-epidemiology: "a dose lands" for a post-exposure dose taking effect, "cases blow
-up" for exponential growth, "the signal dies off" for incidence declining, "the
-curve bends" for growth slowing. Also the startup register generally: ship, spin
-up, dial in, baked in, under the hood, for free, a win, cheap.
-**Problem:** The sentence reads as writing *about* the field rather than in it,
-and a reader who works in the field has to translate it back before they can
-check it. The domain has a precise word, and using it costs no clarity for
-anyone else. The tell is strongest in the opening sentence of a passage, where
-the casual verb is doing the work of orienting the reader.
-**Test:** would someone in the field write this in a paper, a report or a
-protocol? If not, name the event the way they would. Prefer the events the
-software or study actually models over a generic gesture at the same idea.
-**Before:**
-> A person's transmission rate can change part-way through their infectious
-> period: a dose lands, symptoms start, a case goes into isolation.
-**After:**
-> The rate at which a case infects its contacts can change during its infectious
-> period: a post-exposure dose takes effect, or symptoms begin and the case is
-> isolated.
-**Before:**
-> Spin up a model and the numbers come out cheap.
-**After:**
-> A 600-household simulation runs in 1.6 s.
+**Watch for:** a vivid everyday verb standing in for a term of art. In epidemiology: "a dose lands" for a post-exposure dose taking effect, "cases blow up" for exponential growth, "the signal dies off" for declining incidence, "the curve bends" for slowing growth. Also the startup register generally: ship, spin up, dial in, baked in, under the hood, for free, a win, cheap.
 
-This is not licence for jargon. Use the term of the field for anything the field has
-a term for, and plain English for everything else; a sentence dense with terms
-of art that a plain word would carry is its own fault. Where the writer is
-addressed by their discipline, the register to match is a methods section, not a
-blog post.
+**Problem:** The sentence reads as writing about the field from outside it. A reader in the field has to translate it back before checking it. The tell is strongest in the opening sentence of a passage. Ask whether someone in the field would write this in a paper, a report or a protocol; if not, name the event the way they would. This is no licence for jargon: use the term of the field where it has one and plain English elsewhere. Where the writer is addressed by their discipline, match the register of a methods section.
+
+**Before:**
+> A person's transmission rate can change part-way through their infectious period: a dose lands, symptoms start, a case goes into isolation.
+
+**After:**
+> The rate at which a case infects its contacts can change during its infectious period: a post-exposure dose takes effect, or symptoms begin and the case is isolated.
 
 ### 40. "Whose" with a thing as antecedent
 

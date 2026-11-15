@@ -4,6 +4,7 @@
 
 - Merged upstream 4.0.0, taking its wording wherever it conflicted with this fork, including the reversal of the no-invention rule in steps 2 and 3, §14 and §17. The fork's local rules (§27 to §41), steps 5 to 8, the banned words and its edits to §1 and §13 stay. 41 patterns total.
 - A local paragraph after step 8 limits 4.0.0's added specifics: academic, grant, technical and reference writing, and anything with citations, gets no fact the source or the user did not give, and elsewhere each added detail is listed so the writer can check it.
+- Trimmed the longest local rules (§31, §32, §33, §35, §39) and steps 5 to 8 to bring `SKILL.md` back under its 9,500-word budget, from 9,745 words to 8,710. Steps 5 and 6 merge, leaving the local steps as 5 to 7; the details of what `tells.py` reports move to `AGENTS.md`. The §33 and §39 examples that added facts are rewritten or dropped, and a use of the banned "carry" in §39 is gone.
 
 ## 3.1.0+sbfnk.4
 
