@@ -191,7 +191,7 @@ Humanizer numbers the patterns from strongest and most common to weakest. It edi
 | 32 | **Chaining clauses with "so", ", and" or ", which"** | "Handles are numbered per session, and one from a dead session names another object. Every handle has a token, and both sides compare it." | End the first sentence; name the relation with "because" when it matters |
 | 33 | **Trailing "and the X it Ys" that says nothing about X** | "...using AI to write code, and the review that requires" | Give the tail a main verb or cut it |
 | 34 | **"and" where the relation is adversative** | "Caching raises throughput, and the gain does not last" | Use "but" and say what the contrast is |
-| 35 | **Wh-clauses where a noun belongs** | "### Where the programme works" | "### Setting" |
+| 35 | **Wh- and relative clauses where a noun belongs** | "### Where the programme works"; "the key the model mixes by" | "### Setting"; "the mixing key" |
 | 36 | **Checking voice against your own output** | "This phrase is all over the notes, so it is the writer's voice" | AI-tagged notes and prior drafts are not evidence; weight unaided text |
 | 37 | **A thing and its opposite offered as a label** | "what the cases could and could not support" | Say which side the answer falls on |
 | 38 | **Possessive 's on things that are not people** | "the vaccine's effectiveness" | "the effectiveness of the vaccine" |
