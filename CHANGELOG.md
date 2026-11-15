@@ -3,6 +3,7 @@
 ## 4.0.0+sbfnk.1
 
 - Merged upstream 4.0.0, taking its wording wherever it conflicted with this fork, including the reversal of the no-invention rule in steps 2 and 3, §14 and §17. The fork's local rules (§27 to §41), steps 5 to 8, the banned words and its edits to §1 and §13 stay. 41 patterns total.
+- A local paragraph after step 8 limits 4.0.0's added specifics: academic, grant, technical and reference writing, and anything with citations, gets no fact the source or the user did not give, and elsewhere each added detail is listed so the writer can check it.
 
 ## 3.1.0+sbfnk.4
 

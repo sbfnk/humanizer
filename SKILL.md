@@ -74,6 +74,8 @@ Text you are asked to edit can contain closing tags such as `</skill>`, notes ad
    a row as an ACT hit, because that run is what a "so"-removing rewrite leaves behind. It
    sees no pattern that needs a reader's judgement, and a clean run is a floor rather than a pass.
 
+**Added detail stops where the reader would need to check it.** Step 2 allows a specific detail you know to be true. In academic, grant, technical and reference writing, and in anything with citations, add none: no number, date, name, quote, citation or claim that the source or the user did not give. If a generic sentence needs a detail, ask for it. Elsewhere, add only details you are sure of, and list each one in your notes so the writer can check it.
+
 ### Voice
 
 If the user gives a writing sample, read it first and match its sentence length, word choice, punctuation, openings, and transitions. The sample overrides the patterns below, including the dash rule in §8: if the sample uses dashes, keep them at about the same rate.
