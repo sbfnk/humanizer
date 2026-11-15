@@ -59,6 +59,7 @@ FIXTURES = [
     ("A budget limits the number of people an intervention can reach.", "CHECK", "relative clause where a noun exists, with a modal"),
     ("These are the people a user cannot reach.", "CHECK", "relative clause where a noun exists, with a negated modal"),
     ("- the values of the key the model mixes by", "CHECK", "relative clause in an unpunctuated list item"),
+    ("The parameters of the model vary.", None, "a preposition cannot head a relative clause"),
 ]
 
 TIER_RANK = {"CHECK": 0, "ACT": 1}
