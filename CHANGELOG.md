@@ -3,7 +3,7 @@
 ## 4.0.0+sbfnk.2
 
 - §35 now covers relative clauses where an adjective, participle or compound noun exists ("the key the model mixes by" for "the mixing key"), with the exceptions: a clause that restricts by something no short form holds, and a compound that would stack three nouns.
-- `tells.py` reports a heading that starts with a question word or ends in a question mark as an ACT hit for §35. A question word followed by an infinitive ("How to install") is a CHECK candidate instead. It also lists contact clauses after a noun with a subject such as "the model" or "an intervention" ("the people an intervention can reach") as CHECK candidates, matched on paragraph text so that a clause split across lines or ending a list item is found. Both have rows in `check-tells.py`'s fixtures.
+- `tells.py` reports a heading that starts with a question word or ends in a question mark as an ACT hit for §35. Infinitive headings ("How to install") count too. It also lists contact clauses after a noun with a subject such as "the model" or "an intervention" ("the people an intervention can reach") as CHECK candidates, matched on paragraph text so that a clause split across lines or ending a list item is found. Both have rows in `check-tells.py`'s fixtures.
 
 ## 4.0.0+sbfnk.1
 
