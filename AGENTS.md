@@ -48,7 +48,7 @@ Keep `SKILL.md` and `README.md` in sync.
 - **Version:** Keep the same version in `SKILL.md` under `metadata.version`, the first `CHANGELOG.md` heading, `.claude-plugin/plugin.json`, and `.cursor-plugin/plugin.json`. Do not add a top-level `version` field to the skill.
 - **Compatibility:** Keep install and use instructions neutral across agents. Names such as Claude Code, Cursor, OpenCode, and Codex are examples, not limits.
 - **Description:** The plugin manifests use the first sentence of the `SKILL.md` description.
-- **Length:** Every word of `SKILL.md` is read on each use. The validator caps it at 9,500 words in this fork, widened from upstream's 5,500 to fit the fork's extra 3,484 words, of which group G is 2,937; a change that adds words should earn them.
+- **Length:** Every word of `SKILL.md` is read on each use. The validator caps it at 9,500 words in this fork, widened from upstream's 5,500 to fit the fork's extra 3,625 words, of which group G is 3,075; a change that adds words should earn them.
 - **History:** Add a short `CHANGELOG.md` note for any behavior change or non-obvious fix.
 - **Checks:** Before publishing, run `python3 scripts/validate-package.py`, `python3 scripts/check-tells.py`, `npx skills add . --list`, and `claude plugin validate .`. After merging upstream, also run `python3 scripts/check-upstream-merge.py upstream/main`. That one stays out of CI deliberately: it compares against a moving `upstream/main`, so the moment upstream releases a pattern this fork has not merged yet, the numbering collides and the check reads red for a fork that is perfectly healthy.
 
