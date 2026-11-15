@@ -55,6 +55,7 @@ FIXTURES = [
     ("## How to install", "CHECK", "question-word infinitive heading"),
     ("The groups are the values of the key the model mixes by.", "CHECK", "relative clause where a noun exists"),
     ("A budget limits the number of people an intervention can reach.", "CHECK", "relative clause where a noun exists, with a modal"),
+    ("These are the people a user cannot reach.", "CHECK", "relative clause where a noun exists, with a negated modal"),
 ]
 
 TIER_RANK = {"CHECK": 0, "ACT": 1}

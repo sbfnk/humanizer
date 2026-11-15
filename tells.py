@@ -98,10 +98,13 @@ PATTERNS = [
     ("CHECK", "35", "chained wh-clauses as object", r"\b(show|shows|showed|assess|assesses|establish|establishes|determine|determines|examine|examines)\b[^.;]{0,40}\b(how far|how much|which|whether|when)\b[^.;]{0,80}\b(and|or) (how far|how much|which|whether|when)\b"),
     ("ACT", "35", "question heading", r"^\s*#+\s+(?:(?:what|how|which|why|where|when|who)\b(?!\s+(?:not\s+)?to\b).*|.*\?)\s*$"),
     ("CHECK", "35", "question-word infinitive heading", r"^\s*#+\s+(?:what|how|which|why|where|when|who)\s+(?:not\s+)?to\b.*$"),
-    ("CHECK", "35", "relative clause where a noun or adjective exists", r"\b(?:the|a|an|each|every|any|all|those|these) (?:[a-z]+ ){0,2}?(?!(?:when|if|as|while|or|and|but|that|which|where|how|whether|once|until|unless|because)\b)[a-z]+ (?:an?|the|this|each|its) (?:model|intervention|user|engine|function|process|simulation|package|reader|run|method|study|team) (?:(?:can|could|will|would|may|might|must|should|does|did) )?(?!(?:with|of|as|from|to|for|on|in|at|by|without|otherwise|too|itself|again|unchanged|state|time|starting|is|are|was|were|has|have|it|that|which|who|and|or|but)\b)[a-z]+(?: (?:by|to|with|from|for|on|in|of|at|over|through))?(?=\s*[,.;:)]|\s*$)"),
+    ("CHECK", "35", "relative clause where a noun or adjective exists", r"\b(?:the|a|an|each|every|any|all|those|these) (?:[a-z]+ ){0,2}?(?!(?:when|if|as|while|or|and|but|that|which|where|how|whether|once|until|unless|because)\b)[a-z]+ (?:an?|the|this|each|its) (?:model|intervention|user|engine|function|process|simulation|package|reader|run|method|study|team) (?:(?:can|could|will|would|may|might|must|should|does|did|cannot|can't|won't|does not|did not|do not) )?(?!(?:with|of|as|from|to|for|on|in|at|by|without|otherwise|too|itself|again|unchanged|state|time|starting|is|are|was|were|has|have|it|that|which|who|and|or|but)\b)[a-z]+(?: (?:by|to|with|from|for|on|in|of|at|over|through))?(?=\s*[,.;:)])"),
 ]
 
 PARA_SECTIONS = ("1", "33", "34")
+# Patterns matched on paragraph text only, never line by line: a clause they
+# look for often runs across a line break in hard-wrapped prose.
+PARA_ONLY = {"relative clause where a noun or adjective exists"}
 
 FENCE = re.compile(r"^\s*(```|~~~)")
 INLINE_CODE = re.compile(r"`[^`]*`")
@@ -312,7 +315,7 @@ def check(path, act_only=False):
         if not line.strip():
             continue
         for tier, sec, label, pat in PATTERNS:
-            if act_only and tier != "ACT":
+            if (act_only and tier != "ACT") or label in PARA_ONLY:
                 continue
             for m in re.finditer(pat, line, re.IGNORECASE):
                 add(n, tier, sec, label, m.group(0).strip())
@@ -327,10 +330,11 @@ def check(path, act_only=False):
     # paragraph-scale patterns, on whitespace-normalised prose
     for start, text in paragraphs(masked):
         for tier, sec, label, pat in PATTERNS:
-            if sec not in PARA_SECTIONS or (act_only and tier != "ACT"):
+            if (sec not in PARA_SECTIONS and label not in PARA_ONLY) or (act_only and tier != "ACT"):
                 continue
             for m in re.finditer(pat, text, re.IGNORECASE):
-                add(start, tier, sec, label + " (para)", m.group(0).strip())
+                suffix = "" if label in PARA_ONLY else " (para)"
+                add(start, tier, sec, label + suffix, m.group(0).strip())
 
     hits.sort(key=lambda h: (h[1] != "ACT", h[0]))
     for n, tier, sec, label, match in hits:
