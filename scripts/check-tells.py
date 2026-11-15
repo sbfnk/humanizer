@@ -55,6 +55,7 @@ FIXTURES = [
     ("## How to install", "CHECK", "question-word infinitive heading"),
     ("### Which sampler to use", "CHECK", "question-word infinitive heading with a word between"),
     ("## What happens to each case", "ACT", "question heading with 'to' before a determiner"),
+    ("## What happens to them", "ACT", "question heading with 'to' before a pronoun"),
     ("The groups are the values of the key the model mixes by.", "CHECK", "relative clause where a noun exists"),
     ("A budget limits the number of people an intervention can reach.", "CHECK", "relative clause where a noun exists, with a modal"),
     ("These are the people a user cannot reach.", "CHECK", "relative clause where a noun exists, with a negated modal"),
