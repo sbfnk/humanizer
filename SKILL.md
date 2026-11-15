@@ -8,12 +8,12 @@ description: |
   Local additions: banned words, conversation-derived "X, not Y", abstract agency,
   pseudo-clefts, third-person self-reference, name drift, negation where a
   description exists, clause chains with "so", ", and" or ", which", trailing coordination, flattened contrasts,
-  wh-clauses where a noun belongs, checking voice against your own output,
+  wh- and relative clauses where a noun belongs, checking voice against your own output,
   paired opposites used as a label, possessive 's on things, and casual verbs
   where the field has a term.
 license: MIT
 metadata:
-  version: "4.0.0+sbfnk.1"
+  version: "4.0.0+sbfnk.2"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -669,11 +669,11 @@ The same applies in reverse: do not reach for "but" when the clauses agree.
 Watch for "and" chaining three clauses where the last one turns, which hides the
 turn in the middle of a list.
 
-### 35. Wh-clauses where a noun belongs
+### 35. Wh- and relative clauses where a noun belongs
 
-**Watch for:** headings and subjects built as a bare question: What X does, What X is worth, What exists at the end, Where X works, How X deepens, Why X matters, what is worth measuring. Also the same shape as a subject ("What can be known during an outbreak is fixed by...") and as an object after a verb of finding out ("we will assess how much the estimate changes").
+**Watch for:** headings and subjects built as a bare question: What X does, What X is worth, What exists at the end, Where X works, How X deepens, Why X matters, what is worth measuring. Also the same shape as a subject ("What can be known during an outbreak is fixed by...") and as an object after a verb of finding out ("we will assess how much the estimate changes"). Also a relative clause where an adjective, participle or compound noun exists: "the zones that had doses", "the key the model mixes by", "the number of people an intervention can reach".
 
-**Problem:** A question stands where a name belongs. The heading reads like an FAQ entry and stages a question the text then answers; the subject arrives three or four words late. This is the bare-nominal relative of §28 and needs no copula. Prefer the noun wherever one names the thing: "the conclusions of a study" over "what a study concludes". In object position, one wh-clause after a verb of finding out is ordinary and a chain of two or three is the tell; after any other verb, one is. Keep the wh-form for a question the reader has just asked, or a quoted one.
+**Problem:** A question stands where a name belongs. The heading reads like an FAQ entry and stages a question the text then answers; the subject arrives three or four words late. This is the bare-nominal relative of §28 and needs no copula. Prefer the noun wherever one names the thing: "the conclusions of a study" over "what a study concludes". In object position, one wh-clause after a verb of finding out is ordinary and a chain of two or three is the tell; after any other verb, one is. Keep the wh-form for a question the reader has just asked, or a quoted one. For relative clauses, prefer the short form wherever one names the thing ("the dosed zones", "the mixing key"), and keep the clause when it restricts by something no short form holds ("people exposed before the cutoff but tested after it") or when the compound would stack three nouns.
 
 **Before:**
 > ### Where the programme works
@@ -688,6 +688,12 @@ turn in the middle of a list.
 
 **After:**
 > Simulations quantify the bias when these data are missing and identify the data that would remove it.
+
+**Before (relative clauses):**
+> A dose budget limits the number of people an intervention can reach. In the mixing approximations the groups are the values of the key the model mixes by.
+
+**After:**
+> A budget limits the doses given per period. In the mixing approximations the groups are the mixing groups.
 
 ### 36. Checking voice against your own output
 

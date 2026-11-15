@@ -50,6 +50,10 @@ FIXTURES = [
     ("It is not only slow but wrong.", "ACT", "not just/only/merely X but Y"),
     ("The team is data-driven and cross-functional.", None, "§10 dropped these upstream"),
     ("The vaccine's effectiveness was high.", "CHECK", "possessive 's on a thing"),
+    ("## What each engine supports", "ACT", "question heading"),
+    ("### Which tool do I need?", "ACT", "question heading ending in ?"),
+    ("The groups are the values of the key the model mixes by.", "CHECK", "relative clause where a noun exists"),
+    ("A budget limits the number of people an intervention can reach.", "CHECK", "relative clause where a noun exists, with a modal"),
 ]
 
 TIER_RANK = {"CHECK": 0, "ACT": 1}
