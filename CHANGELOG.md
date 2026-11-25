@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.0.0+sbfnk.3
+
+- Merged upstream's changes since 4.0.0, listed under Unreleased below, taking its wording wherever it conflicted with this fork. Its steps 1 to 4 replace the fork's; the fork's steps 5 to 7 and the paragraph limiting added detail follow them unchanged. The fork's own install command and its note that patterns 27 to 41 are local stay. Upstream reworded §13's problem and example, so `scripts/check-upstream-merge.py` now pins the merged §13, which keeps the fork's added watch phrase.
+
+## Unreleased
+
+- Tightened `SKILL.md` and `README.md` for clarity, concision, and readability. Reworded four "After" examples (§6, §13, §15, §25) so they read naturally and avoid stock academic phrasing.
+- Added "the part" as a stand-in to §4: "the hard part is X" stages X, and "the part that doesn't" or "the part worth sharing" points at something the text never names (#338).
+- `scripts/validate-package.py` now fails when a pattern number appears twice in `SKILL.md` or in the README tables. Before, the second one replaced the first and the check passed (#340).
+- Informal human text is no longer over-edited. Chat messages, rants, and angry reviews keep their lowercase, abbreviations, fragments, and blunt openers. A lone tell is not enough there (§22 chatbot residue excepted); two unrelated tells make the whole text a rewrite target. Anger keeps its strength, and "tried X" stays "tried X" (#318).
+- Added a closing "Overall" or "Ultimately" verdict that restates the paragraph to §2 (#318).
+- Said that a plain "let me know" in a message predates chatbots (#318).
+- Cited El Attar et al. (arXiv:2606.04177) in the Source section and the README sources (#318).
+
 ## 4.0.0+sbfnk.2
 
 - §35 now covers relative clauses where an adjective, participle or compound noun exists ("the key the model mixes by" for "the mixing key"), with the exceptions: a clause that restricts by something no short form holds, and a compound that would stack three nouns.
